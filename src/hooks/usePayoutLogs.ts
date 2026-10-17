@@ -26,6 +26,17 @@ const PAYOUT_EVENT = parseAbiItem(
 const CHUNK = 1500n
 const MAX_CHUNKS = 200
 
+async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+  for (let i = 0; ; i++) {
+    try {
+      return await fn()
+    } catch (e) {
+      if (i >= attempts - 1) throw e
+      await new Promise((r) => setTimeout(r, 400 * (i + 1)))
+    }
+  }
+}
+
 export function usePayoutLogs() {
   const [rows, setRows] = useState<RecipientTotals[]>([])
   const [loading, setLoading] = useState(true)
@@ -69,12 +80,14 @@ export function usePayoutLogs() {
           setProgress({ done: i, total: cappedChunks })
 
           try {
-            const logs = await client.getLogs({
-              address: ART_VENDOR_ADDRESS,
-              event: PAYOUT_EVENT,
-              fromBlock,
-              toBlock,
-            })
+            const logs = await withRetry(() =>
+              client.getLogs({
+                address: ART_VENDOR_ADDRESS,
+                event: PAYOUT_EVENT,
+                fromBlock,
+                toBlock,
+              })
+            )
 
             for (const log of logs) {
               const recipient = (log.args.recipient as string).toLowerCase()
