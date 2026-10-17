@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+build/
+contracts/out/
+contracts/cache/
+
+# secrets
+.env
+.env.*
+!.env.example
+.circle/
+.secrets/
+.arc-studio/
+
+# editor / OS
+.DS_Store
+*.log
+*.pem

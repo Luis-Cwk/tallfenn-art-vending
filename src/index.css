@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── White-cube gallery tokens ───────────────────────────────────────────── */
+:root {
+  --bg:              #F7F4EE;
+  --bg-warm:         #F2EDE4;
+  --surface:         #FDFBF7;
+  --surface-muted:   #EDE8DF;
+  --ink:             #1A1A1A;
+  --ink-2:           #2C2C2C;
+  --muted:           #6B6560;
+  --subtle:          #9E9890;
+  --border:          #E5DFD3;
+  --border-strong:   #C8BFB1;
+  --accent:          #2C2C2C;       /* default neutral; overridden per-artwork */
+  --accent-hover:    #111111;
+  --focus:           #B8A99A;
+  --success:         #4A7C59;
+  --danger:          #9B3A3A;
+  --gold:            #8A6A2B;
+
+  /* Score-paper ruled lines (applied as background to header/divider strips) */
+  --ruled-line: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 23px,
+    rgba(160, 148, 130, 0.07) 23px,
+    rgba(160, 148, 130, 0.07) 24px
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Typography helpers ─────────────────────────────────────────────────── */
+.serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.mono {
+  font-family: 'JetBrains Mono', 'Menlo', 'Courier New', monospace;
+  font-size: 0.82em;
+  letter-spacing: 0;
+}
+
+/* ─── Score paper texture strip ─────────────────────────────────────────── */
+.ruled {
+  background-image: var(--ruled-line);
+}
+
+/* ─── Hairline frame (the "wall" around artwork) ────────────────────────── */
+.artwork-frame {
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+/* ─── Thin rule divider ─────────────────────────────────────────────────── */
+.rule {
+  border: none;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── Museum label typography ──────────────────────────────────────────── */
+.ficha-label {
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.ficha-title {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  color: var(--ink);
+  font-weight: normal;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 2px; }
+
+/* ─── Sonner toasts (light override) ───────────────────────────────────── */
+[data-sonner-toaster] {
+  --normal-bg: #FDFBF7 !important;
+  --normal-border: var(--border) !important;
+  --normal-text: var(--ink) !important;
+}
+
+/* ─── ConnectKit overrides ───────────────────────────────────────────────── */
+/*
+ * ConnectKit uses styled-components; class names are hashed and change.
+ * We target the wrapper via the data attribute ConnectKit does stamp,
+ * plus a broad descendant rule that catches any inner div/button
+ * inside the header that paints the white pill.
+ */
+
+/* 1. The outer <button> injected by ConnectKit: plain text, no border, no box */
+header [data-testid="connectkit-button"],
+header [class*="ConnectKitButton"],
+header button[class*="sc-"] {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+  color: var(--muted) !important;
+  font-family: system-ui, -apple-system, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+  line-height: 1.4 !important;
+  cursor: pointer !important;
+}
+header [data-testid="connectkit-button"]:hover,
+header [class*="ConnectKitButton"]:hover,
+header button[class*="sc-"]:hover {
+  color: var(--ink) !important;
+}
+
+/* 2. The inner <div class="...primary"> that paints the white pill */
+header button .primary,
+header button [class*="primary"],
+header button > div,
+header button > div > div {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+  border: none !important;
+}
+
+/* 3. Fallback: any <div> or <span> inside a styled-components button in the header */
+header button[class*="sc-"] > *,
+header button[class*="sc-"] > * > * {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  height: auto !important;
+}
+
+/* ─── Input reset ───────────────────────────────────────────────────────── */
+input, select, textarea {
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Keyframes ─────────────────────────────────────────────────────────── */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+/* ─── Responsive overrides ──────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  /* Gallery catalogue rows: collapse to 3 cols; price + editions wrap below title */
+  .catalogue-row {
+    grid-template-columns: 20px 48px 1fr !important;
+    grid-template-rows: auto auto;
+    row-gap: 0 !important;
+  }
+  .catalogue-row .cat-price {
+    grid-column: 3;
+    text-align: left !important;
+    font-size: 12px !important;
+    color: var(--muted) !important;
+    padding-bottom: 4px;
+  }
+  .catalogue-row .cat-editions {
+    display: none !important;
+  }
+
+  /* Museum label: stack editions / price */
+  .ficha-right {
+    text-align: left !important;
+    flex-basis: 100%;
+  }
+
+  /* Splits table: 2-col on mobile (recipient + total only) */
+  .splits-header {
+    grid-template-columns: 1fr 120px !important;
+  }
+  .splits-row {
+    grid-template-columns: 1fr 120px !important;
+  }
+  .splits-row-last,
+  .splits-row-count {
+    display: none !important;
+  }
+
+  /* Artist form: single column always */
+  .artist-two-col {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Buy panel: single column on mobile */
+  .buy-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* General padding reduction */
+  [data-padded] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
