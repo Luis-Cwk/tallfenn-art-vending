@@ -35,7 +35,8 @@ const SOLD_EVENT = parseAbiItem(
 
 const CHUNK = 10000n
 const MAX_CHUNKS = 30
-const CACHE_KEY = 'tallfenn_sales_v1'
+// Cache is scoped to the contract address: a new deployment must not reuse old sales.
+const CACHE_KEY = 'tallfenn_sales_v2_' + ART_VENDOR_ADDRESS.toLowerCase()
 
 interface CachedSale {
   artworkId: number

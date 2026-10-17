@@ -36,7 +36,8 @@ const PAYOUT_EVENT = parseAbiItem(
 
 const CHUNK = 10000n
 const MAX_CHUNKS = 30
-const CACHE_KEY = 'tallfenn_splits_v2'
+// Cache is scoped to the contract address: a new deployment must not reuse old payouts.
+const CACHE_KEY = 'tallfenn_splits_v3_' + ART_VENDOR_ADDRESS.toLowerCase()
 
 interface CachedRow {
   address: string
