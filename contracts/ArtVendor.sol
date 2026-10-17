@@ -42,6 +42,7 @@ contract ArtVendor is ERC721, Pausable, Ownable {
     error ArtworkNotFound();
     error EditionsSoldOut();
     error PayoutFailed();
+    error InvalidBase();
 
     event ArtworkListed(
         uint256 indexed artworkId,
@@ -56,19 +57,24 @@ contract ArtVendor is ERC721, Pausable, Ownable {
     event ArtworkRecipientsUpdated(uint256 indexed artworkId, address[] recipients, uint16[] sharesBps);
 
     IERC20 public immutable usdc;
+    string public imageBase;
+    string public appBase;
     mapping(uint256 => Artwork) private _artworks;
     uint256 private _artworkCount;
     uint256 private _nextTokenId;
     mapping(uint256 => ReceiptMetadata) private _receiptMetadata;
 
-    constructor(address usdcToken, address initialOwner)
+    constructor(address usdcToken, address initialOwner, string memory imageBase_, string memory appBase_)
         ERC721("Tall Fenn Receipt", "TFENN")
         Ownable(initialOwner)
     {
         if (usdcToken == address(0) || initialOwner == address(0)) revert ZeroAddress();
+        if (bytes(imageBase_).length == 0 || bytes(appBase_).length == 0) revert InvalidBase();
         // All price amounts are in ERC-20 interface units (6 decimals on Arc).
         // Do NOT confuse with the native gas-token view which uses 18 decimals.
         usdc = IERC20(usdcToken);
+        imageBase = imageBase_;
+        appBase = appBase_;
         _nextTokenId = 1;
     }
 
@@ -240,6 +246,7 @@ contract ArtVendor is ERC721, Pausable, Ownable {
         ReceiptMetadata memory receipt = _receiptMetadata[tokenId];
         Artwork storage art = _artworks[receipt.artworkId];
 
+        string memory hashHex = _bytes32ToHexStringNoPrefix(art.seedHash);
         string memory json = string(
             abi.encodePacked(
                 '{"name":"Tall Fenn - ',
@@ -248,6 +255,15 @@ contract ArtVendor is ERC721, Pausable, Ownable {
                 uint256(receipt.editionNumber).toString(),
                 '","description":"',
                 art.seedInput,
+                '","image":"',
+                imageBase,
+                hashHex,
+                '.png","animation_url":"',
+                appBase,
+                'live?h=',
+                hashHex,
+                '","external_url":"',
+                appBase,
                 '","attributes":[',
                 '{"trait_type":"Seed Hash","value":"',
                 _bytes32ToHexString(art.seedHash),
@@ -279,6 +295,20 @@ contract ArtVendor is ERC721, Pausable, Ownable {
             uint8 b = uint8(data[i]);
             str[2 + (i * 2)] = hexSymbols[b >> 4];
             str[3 + (i * 2)] = hexSymbols[b & 0x0f];
+        }
+
+        return string(str);
+    }
+
+    /// Returns the lowercase hex encoding of a bytes32 value WITHOUT the 0x prefix (64 chars).
+    function _bytes32ToHexStringNoPrefix(bytes32 data) internal pure returns (string memory) {
+        bytes16 hexSymbols = "0123456789abcdef";
+        bytes memory str = new bytes(64);
+
+        for (uint256 i = 0; i < 32; i++) {
+            uint8 b = uint8(data[i]);
+            str[i * 2]     = hexSymbols[b >> 4];
+            str[i * 2 + 1] = hexSymbols[b & 0x0f];
         }
 
         return string(str);

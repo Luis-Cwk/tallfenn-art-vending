@@ -74,11 +74,15 @@ contract ArtVendorTest is Test {
     string  internal constant SERIES    = "Forest Series";
     uint32  internal constant EDITIONS  = 5;
 
+    // Base URL constants for constructor
+    string  internal constant IMAGE_BASE = "https://tallfenn-art-vending.petrasynthetic.workers.dev/posters/";
+    string  internal constant APP_BASE   = "https://tallfenn-art-vending.petrasynthetic.workers.dev/";
+
     function setUp() public {
         // Deploy a fresh MockERC20 and a fresh ArtVendor before every test.
         usdc   = new MockERC20("Mock USDC", "mUSDC", 6);
         vm.prank(owner);
-        vendor = new ArtVendor(address(usdc), owner);
+        vendor = new ArtVendor(address(usdc), owner, IMAGE_BASE, APP_BASE);
 
         // Give alice enough USDC and a blanket approval.
         usdc.mint(alice, BUYER_SUPPLY);
@@ -127,13 +131,28 @@ contract ArtVendorTest is Test {
 
     function testConstructor_ZeroUSDCReverts() public {
         vm.expectRevert(ArtVendor.ZeroAddress.selector);
-        new ArtVendor(address(0), owner);
+        new ArtVendor(address(0), owner, IMAGE_BASE, APP_BASE);
     }
 
     function testConstructor_ZeroOwnerReverts() public {
         // OZ Ownable(address(0)) throws OwnableInvalidOwner before our ZeroAddress check.
         vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableInvalidOwner.selector, address(0)));
-        new ArtVendor(address(usdc), address(0));
+        new ArtVendor(address(usdc), address(0), IMAGE_BASE, APP_BASE);
+    }
+
+    function testConstructor_EmptyImageBaseReverts() public {
+        vm.expectRevert(ArtVendor.InvalidBase.selector);
+        new ArtVendor(address(usdc), owner, "", APP_BASE);
+    }
+
+    function testConstructor_EmptyAppBaseReverts() public {
+        vm.expectRevert(ArtVendor.InvalidBase.selector);
+        new ArtVendor(address(usdc), owner, IMAGE_BASE, "");
+    }
+
+    function testConstructor_StoresImmutables() public view {
+        assertEq(vendor.imageBase(), IMAGE_BASE);
+        assertEq(vendor.appBase(), APP_BASE);
     }
 
     // -----------------------------------------------------------------------
@@ -383,6 +402,51 @@ contract ArtVendorTest is Test {
         // Artwork ID attribute with value "0"
         assertTrue(_contains(decoded, '"trait_type":"Artwork ID"'), "missing Artwork ID trait_type");
         assertTrue(_contains(decoded, '"value":"0"'),               "missing artwork id value 0");
+
+        // image, animation_url, external_url present
+        assertTrue(_contains(decoded, '"image":"'),         "missing image field");
+        assertTrue(_contains(decoded, '"animation_url":"'), "missing animation_url field");
+        assertTrue(_contains(decoded, '"external_url":"'),  "missing external_url field");
+        assertTrue(_contains(decoded, APP_BASE),            "missing appBase in JSON");
+        assertTrue(_contains(decoded, IMAGE_BASE),          "missing imageBase in JSON");
+    }
+
+    function testTokenURIImageAndAnimationFields() public {
+        // Use a fixed seed so we can compute the expected seedHash deterministically.
+        string memory seed = "masas|serie|A|01";
+        string memory series = "Masas Serie A";
+        (address[] memory recips, uint16[] memory shares) = _twoRecipients(recip0, recip1, 5000, 5000);
+
+        vm.prank(owner);
+        vendor.listArtwork(PRICE, 1, seed, series, recips, shares);
+
+        vm.prank(alice);
+        vendor.buy(0);
+
+        // Compute expected seedHash (same formula as contract)
+        bytes32 expectedHash = sha256(abi.encodePacked(seed, "|v1|tallfenn"));
+        string memory hashHex = _toHexStringNoPrefix(expectedHash);
+
+        string memory uri = vendor.tokenURI(1);
+        uint256 prefixLen = bytes("data:application/json;base64,").length;
+        bytes memory encoded = bytes(uri);
+        bytes memory b64data = new bytes(encoded.length - prefixLen);
+        for (uint256 i = 0; i < b64data.length; i++) {
+            b64data[i] = encoded[i + prefixLen];
+        }
+        string memory decoded = string(_base64Decode(b64data));
+
+        // image = imageBase + hashHex + ".png"
+        string memory expectedImage = string(abi.encodePacked(IMAGE_BASE, hashHex, ".png"));
+        assertTrue(_contains(decoded, expectedImage), "image URL mismatch");
+
+        // animation_url = appBase + "live?h=" + hashHex
+        string memory expectedAnim = string(abi.encodePacked(APP_BASE, "live?h=", hashHex));
+        assertTrue(_contains(decoded, expectedAnim), "animation_url mismatch");
+
+        // external_url = appBase
+        string memory expectedExt = string(abi.encodePacked('"external_url":"', APP_BASE, '"'));
+        assertTrue(_contains(decoded, expectedExt), "external_url mismatch");
     }
 
     // -----------------------------------------------------------------------
@@ -463,7 +527,7 @@ contract ArtVendorTest is Test {
         // Deploy blocklist-aware USDC and a new ArtVendor that uses it.
         MockBlocklistableUSDC blUsdc = new MockBlocklistableUSDC();
         vm.prank(owner);
-        ArtVendor blVendor = new ArtVendor(address(blUsdc), owner);
+        ArtVendor blVendor = new ArtVendor(address(blUsdc), owner, IMAGE_BASE, APP_BASE);
 
         address goodAddr1 = makeAddr("goodAddr1");
         address goodAddr2 = makeAddr("goodAddr2");
@@ -676,6 +740,18 @@ contract ArtVendorTest is Test {
             if (found) return true;
         }
         return false;
+    }
+
+    /// Mirrors _bytes32ToHexStringNoPrefix from the contract (no 0x prefix, 64 chars).
+    function _toHexStringNoPrefix(bytes32 data) internal pure returns (string memory) {
+        bytes16 hexSymbols = "0123456789abcdef";
+        bytes memory str = new bytes(64);
+        for (uint256 i = 0; i < 32; i++) {
+            uint8 b = uint8(data[i]);
+            str[i * 2]     = hexSymbols[b >> 4];
+            str[i * 2 + 1] = hexSymbols[b & 0x0f];
+        }
+        return string(str);
     }
 
     /// Minimal base64 decoder (RFC 4648, no padding required).

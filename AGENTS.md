@@ -20,7 +20,7 @@ Generative-art vending machine for Tall Fenn. Buyers pay USDC; payment splits in
 
 | Contract | Address | Chain | Explorer |
 |---|---|---|---|
-| ArtVendor (canonical) | `0xa750869cf87ac1d001a70bdfd1d75de468014153` | Arc (5042) | https://explorer.arc.io/address/0xa750869cf87ac1d001a70bdfd1d75de468014153 |
+| ArtVendor (canonical) | `0x4c6723ff8538cdaeb808f8baf352cd53bb051119` | Arc (5042) | https://explorer.arc.io/address/0x4c6723ff8538cdaeb808f8baf352cd53bb051119 |
 
 Deploy tx: `0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1`
 Deploy block: `26394991`

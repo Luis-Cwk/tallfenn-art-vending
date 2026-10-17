@@ -5,7 +5,7 @@
 import { arc } from 'viem/chains'
 import { getUsdc } from '@/onchain-facts'
 
-export const ART_VENDOR_ADDRESS = '0xa750869cf87ac1d001a70bdfd1d75de468014153' as const
+export const ART_VENDOR_ADDRESS = '0x4c6723ff8538cdaeb808f8baf352cd53bb051119' as const
 export const ART_VENDOR_CHAIN_ID = arc.id  // 5042
 
 const usdcFact = getUsdc(ART_VENDOR_CHAIN_ID)
@@ -15,8 +15,8 @@ export const USDC_DECIMALS = usdcFact.decimals // 6
 
 export const EXPLORER_BASE = 'https://explorer.arc.io'
 
-/** Block at which the canonical ArtVendor was deployed on Arc mainnet (deploy tx 0xa2d3f4ad…). */
-export const DEPLOY_BLOCK = 26394991n
+/** Block at which the canonical ArtVendor was deployed on Arc mainnet (deploy tx 0x2b6999da…). */
+export const DEPLOY_BLOCK = 26498406n
 
 export const ART_VENDOR_ABI = [
   {

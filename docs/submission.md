@@ -20,7 +20,7 @@ The app was built end to end in Arc Studio: contract, tests and frontend. Contra
 
 - Live app: https://tallfenn-art-vending.petrasynthetic.workers.dev
 - Repository: https://github.com/Luis-Cwk/tallfenn-art-vending
-- Contract (Arc mainnet): https://explorer.arc.io/address/0xa750869cf87ac1d001a70bdfd1d75de468014153
+- Contract (Arc mainnet): https://explorer.arc.io/address/0x4c6723ff8538cdaeb808f8baf352cd53bb051119
 - Deploy tx: https://explorer.arc.io/tx/0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1
 - Buy tx (0.5 USDC, 80/20 split): https://explorer.arc.io/tx/0xd0ff393bf417ed7bcf698490f0bda2e20a979d1ed8bd2a56c89d192f0e96bcc3
 - Arc Studio project: https://studio.arc.io/app/b65c7764-ac57-4914-ab49-035ed4bc1491

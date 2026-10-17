@@ -45,17 +45,17 @@ forge test
 | Network | ArtVendor | Explorer |
 |---|---|---|
 | Arc Testnet | `0xced7cd9590b112da9149d29176b17630ed022266` | [explorer](https://explorer.testnet.arc.io/address/0xced7cd9590b112da9149d29176b17630ed022266) |
-| Arc mainnet | `0xa750869cf87ac1d001a70bdfd1d75de468014153` | [explorer](https://explorer.arc.io/address/0xa750869cf87ac1d001a70bdfd1d75de468014153) |
+| Arc mainnet | `0x4c6723ff8538cdaeb808f8baf352cd53bb051119` | [explorer](https://explorer.arc.io/address/0x4c6723ff8538cdaeb808f8baf352cd53bb051119) |
 
 Mainnet reference transactions:
-- Deploy: [`0xa2d3f4ad…`](https://explorer.arc.io/tx/0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1)
-- List artwork: [`0x79e04906…`](https://explorer.arc.io/tx/0x79e04906def4c6dd469d525f47b6c19b07297b7740fedcf3d2711b6ed8882551)
-- Buy (0.5 USDC, 80/20 split): [`0xd0ff393b…`](https://explorer.arc.io/tx/0xd0ff393bf417ed7bcf698490f0bda2e20a979d1ed8bd2a56c89d192f0e96bcc3)
+- Deploy: [`0xa2d3f4adâ€¦`](https://explorer.arc.io/tx/0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1)
+- List artwork: [`0x79e04906â€¦`](https://explorer.arc.io/tx/0x79e04906def4c6dd469d525f47b6c19b07297b7740fedcf3d2711b6ed8882551)
+- Buy (0.5 USDC, 80/20 split): [`0xd0ff393bâ€¦`](https://explorer.arc.io/tx/0xd0ff393bf417ed7bcf698490f0bda2e20a979d1ed8bd2a56c89d192f0e96bcc3)
 
 Testnet reference transactions:
-- Deploy: [`0x5f366949…`](https://explorer.testnet.arc.io/tx/0x5f366949e7ca840e26c31b862f12d4c2f1a1a30fc357444384e79daaa1aed57c)
-- Genesis buy (0.5 USDC, split 80/20): [`0xe36283d9…`](https://explorer.testnet.arc.io/tx/0xe36283d9b15341ca769668a3cf4cd19974fb0d950092c913e5317d8d594a1cac)
-- Blocklist demo (a buy that reverts, then recipient replacement, then a successful buy): [`0x6c14ef55…`](https://explorer.testnet.arc.io/tx/0x6c14ef559bcfc7c9fb64dd9c181355801523c332f84e5bf0c22c936f70f2b9ae), [`0x3253839c…`](https://explorer.testnet.arc.io/tx/0x3253839ce370ef17c413a7ff29cdce29545c04ff6f6f3a8dab65f2be3f426bb3)
+- Deploy: [`0x5f366949â€¦`](https://explorer.testnet.arc.io/tx/0x5f366949e7ca840e26c31b862f12d4c2f1a1a30fc357444384e79daaa1aed57c)
+- Genesis buy (0.5 USDC, split 80/20): [`0xe36283d9â€¦`](https://explorer.testnet.arc.io/tx/0xe36283d9b15341ca769668a3cf4cd19974fb0d950092c913e5317d8d594a1cac)
+- Blocklist demo (a buy that reverts, then recipient replacement, then a successful buy): [`0x6c14ef55â€¦`](https://explorer.testnet.arc.io/tx/0x6c14ef559bcfc7c9fb64dd9c181355801523c332f84e5bf0c22c936f70f2b9ae), [`0x3253839câ€¦`](https://explorer.testnet.arc.io/tx/0x3253839ce370ef17c413a7ff29cdce29545c04ff6f6f3a8dab65f2be3f426bb3)
 
 Contract behaviour was reviewed (security and functional passes) and covered by 35 Foundry tests, including the recovery path for a blocklisted recipient.
 
