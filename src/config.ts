@@ -3,7 +3,7 @@
  * Built with Arc Studio: https://studio.arc.io
  */
 
-import { http, createConfig } from 'wagmi'
+import { http, createConfig, fallback } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 import { arc } from 'viem/chains'
 import { injected } from 'wagmi/connectors'
@@ -16,7 +16,11 @@ export const config = createConfig({
   chains: [arc, mainnet], // mainnet kept for ENS resolution
   connectors: [injected()],
   transports: {
-    [arc.id]: http(),
+    [arc.id]: fallback([
+      http('https://rpc.mainnet.arc.io'),
+      http('https://rpc.blockdaemon.mainnet.arc.io'),
+      http('https://rpc.quicknode.mainnet.arc.io'),
+    ]),
     [mainnet.id]: http(), // ENS resolution uses mainnet
   },
 })

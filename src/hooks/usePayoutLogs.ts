@@ -1,12 +1,16 @@
 /**
  * usePayoutLogs: reads PayoutSent events from ArtVendor and aggregates per recipient.
  *
- * Arc mainnet RPC rejects eth_getLogs ranges larger than ~2000 blocks (-32012).
- * We scan in chunks of 1500 blocks from DEPLOY_BLOCK to the current head, cap
- * at MAX_CHUNKS for safety, and surface partial-data warnings instead of aborting.
+ * Arc RPCs limit eth_getLogs ranges and rate limit bursts. Strategy:
+ * - Scan in 10,000 block chunks from DEPLOY_BLOCK to head (about 7 calls today).
+ * - Cache the aggregate plus the last scanned block in localStorage, so later
+ *   visits only scan what is new.
+ * - Fallback transports (mainnet, Blockdaemon, QuickNode) in case one endpoint fails.
+ * - Retries with backoff per chunk; if a chunk still fails we stop, keep the cached
+ *   totals and flag the data as partial instead of hammering the RPC.
  */
 import { useEffect, useState } from 'react'
-import { createPublicClient, http, parseAbiItem } from 'viem'
+import { createPublicClient, fallback, http, parseAbiItem } from 'viem'
 import { arc } from 'viem/chains'
 import { ART_VENDOR_ADDRESS, USDC_DECIMALS, DEPLOY_BLOCK } from '@/contracts/ArtVendor'
 
@@ -17,22 +21,61 @@ export interface RecipientTotals {
   count: number
 }
 
-const client = createPublicClient({ chain: arc, transport: http() })
+const client = createPublicClient({
+  chain: arc,
+  transport: fallback([
+    http('https://rpc.mainnet.arc.io'),
+    http('https://rpc.blockdaemon.mainnet.arc.io'),
+    http('https://rpc.quicknode.mainnet.arc.io'),
+  ]),
+})
 
 const PAYOUT_EVENT = parseAbiItem(
   'event PayoutSent(uint256 indexed artworkId, address indexed recipient, uint256 amount)'
 )
 
-const CHUNK = 1500n
-const MAX_CHUNKS = 200
+const CHUNK = 10000n
+const MAX_CHUNKS = 30
+const CACHE_KEY = 'tallfenn_splits_v2'
 
-async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
+interface CachedRow {
+  address: string
+  total: string
+  lastAmount: string
+  count: number
+}
+interface Cache {
+  lastBlock: string
+  rows: CachedRow[]
+}
+
+function readCache(): Cache | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY)
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as Cache
+    if (typeof parsed.lastBlock !== 'string' || !Array.isArray(parsed.rows)) return null
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+function writeCache(cache: Cache) {
+  try {
+    localStorage.setItem(CACHE_KEY, JSON.stringify(cache))
+  } catch {
+    /* storage unavailable: ignore */
+  }
+}
+
+async function withRetry<T>(fn: () => Promise<T>, attempts = 2): Promise<T> {
   for (let i = 0; ; i++) {
     try {
       return await fn()
     } catch (e) {
       if (i >= attempts - 1) throw e
-      await new Promise((r) => setTimeout(r, 400 * (i + 1)))
+      await new Promise((r) => setTimeout(r, 500 * (i + 1)))
     }
   }
 }
@@ -40,7 +83,7 @@ async function withRetry<T>(fn: () => Promise<T>, attempts = 3): Promise<T> {
 export function usePayoutLogs() {
   const [rows, setRows] = useState<RecipientTotals[]>([])
   const [loading, setLoading] = useState(true)
-  const [partial, setPartial] = useState(false)   // non-fatal: some chunks failed
+  const [partial, setPartial] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [progress, setProgress] = useState<{ done: number; total: number } | null>(null)
 
@@ -55,27 +98,41 @@ export function usePayoutLogs() {
 
       try {
         const head = await client.getBlockNumber()
-        const start = DEPLOY_BLOCK
+        const cache = readCache()
 
-        if (head < start) {
-          // Nothing to scan yet
-          setRows([])
+        const map = new Map<string, RecipientTotals>()
+        let lastBlock = DEPLOY_BLOCK - 1n
+
+        if (cache) {
+          for (const row of cache.rows) {
+            map.set(row.address.toLowerCase(), {
+              address: row.address,
+              total: BigInt(row.total),
+              lastAmount: BigInt(row.lastAmount),
+              count: row.count,
+            })
+          }
+          lastBlock = BigInt(cache.lastBlock)
+        }
+
+        if (head <= lastBlock) {
+          setRows([...map.values()].sort((a, b) => (a.total > b.total ? -1 : 1)))
           return
         }
 
+        const start = lastBlock + 1n
         const totalBlocks = head - start + 1n
         const totalChunks = Number(totalBlocks / CHUNK) + (totalBlocks % CHUNK > 0n ? 1 : 0)
         const cappedChunks = Math.min(totalChunks, MAX_CHUNKS)
-
-        const map = new Map<string, RecipientTotals>()
-        let hadPartial = false
+        let hadPartial = totalChunks > MAX_CHUNKS
+        let scannedTo = lastBlock
 
         for (let i = 0; i < cappedChunks; i++) {
           if (cancelled) return
 
           const fromBlock = start + BigInt(i) * CHUNK
-          // For the last chunk we scan up to head, not an arbitrary ceiling
-          const toBlock = i === cappedChunks - 1 ? head : fromBlock + CHUNK - 1n
+          const rawTo = fromBlock + CHUNK - 1n
+          const toBlock = rawTo > head ? head : rawTo
 
           setProgress({ done: i, total: cappedChunks })
 
@@ -106,16 +163,33 @@ export function usePayoutLogs() {
                 })
               }
             }
+            scannedTo = toBlock
           } catch {
-            // Non-fatal: mark partial and continue with the next chunk
             hadPartial = true
+            break
           }
+
+          await new Promise((r) => setTimeout(r, 250))
         }
 
         if (cancelled) return
+
+        const sorted = [...map.values()].sort((a, b) => (a.total > b.total ? -1 : 1))
         setPartial(hadPartial)
-        setRows([...map.values()].sort((a, b) => (a.total > b.total ? -1 : 1)))
+        setRows(sorted)
         setProgress({ done: cappedChunks, total: cappedChunks })
+
+        if (scannedTo > lastBlock) {
+          writeCache({
+            lastBlock: scannedTo.toString(),
+            rows: sorted.map((row) => ({
+              address: row.address,
+              total: row.total.toString(),
+              lastAmount: row.lastAmount.toString(),
+              count: row.count,
+            })),
+          })
+        }
       } catch (e) {
         if (!cancelled) setError(e instanceof Error ? e.message : 'Error loading logs')
       } finally {
@@ -124,7 +198,9 @@ export function usePayoutLogs() {
     }
 
     void load()
-    return () => { cancelled = true }
+    return () => {
+      cancelled = true
+    }
   }, [])
 
   function fmt(raw: bigint): string {
