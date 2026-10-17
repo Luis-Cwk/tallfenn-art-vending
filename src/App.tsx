@@ -1,6 +1,6 @@
 /**
  * Tall Fenn: Art Vending Machine
- * Arc Testnet · USDC
+ * Arc mainnet · USDC
  */
 import { useState, useCallback } from 'react'
 import { ConnectKitButton } from 'connectkit'
@@ -170,7 +170,7 @@ export default function App() {
         {/* Left: name + inline Arc Studio badge */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <span style={{ color: 'var(--subtle)', fontSize: 11, fontFamily: 'system-ui, sans-serif' }}>
-            Tall Fenn · Arc Testnet
+            Tall Fenn · Arc
           </span>
           <StudioWatermark />
         </div>

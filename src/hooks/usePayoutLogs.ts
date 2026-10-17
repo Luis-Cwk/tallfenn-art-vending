@@ -1,13 +1,13 @@
 /**
  * usePayoutLogs: reads PayoutSent events from ArtVendor and aggregates per recipient.
  *
- * Arc Testnet RPC rejects eth_getLogs ranges larger than ~2000 blocks (-32012).
+ * Arc mainnet RPC rejects eth_getLogs ranges larger than ~2000 blocks (-32012).
  * We scan in chunks of 1500 blocks from DEPLOY_BLOCK to the current head, cap
  * at MAX_CHUNKS for safety, and surface partial-data warnings instead of aborting.
  */
 import { useEffect, useState } from 'react'
 import { createPublicClient, http, parseAbiItem } from 'viem'
-import { arcTestnet } from 'viem/chains'
+import { arc } from 'viem/chains'
 import { ART_VENDOR_ADDRESS, USDC_DECIMALS, DEPLOY_BLOCK } from '@/contracts/ArtVendor'
 
 export interface RecipientTotals {
@@ -17,7 +17,7 @@ export interface RecipientTotals {
   count: number
 }
 
-const client = createPublicClient({ chain: arcTestnet, transport: http() })
+const client = createPublicClient({ chain: arc, transport: http() })
 
 const PAYOUT_EVENT = parseAbiItem(
   'event PayoutSent(uint256 indexed artworkId, address indexed recipient, uint256 amount)'

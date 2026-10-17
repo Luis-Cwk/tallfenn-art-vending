@@ -1,22 +1,22 @@
 /**
- * ArtVendor contract config: canonical Arc Testnet deployment.
- * Address: 0xced7cd9590b112da9149d29176b17630ed022266
+ * ArtVendor contract config: canonical Arc mainnet deployment.
+ * Address: 0xa750869cf87ac1d001a70bdfd1d75de468014153
  */
-import { arcTestnet } from 'viem/chains'
+import { arc } from 'viem/chains'
 import { getUsdc } from '@/onchain-facts'
 
-export const ART_VENDOR_ADDRESS = '0xced7cd9590b112da9149d29176b17630ed022266' as const
-export const ART_VENDOR_CHAIN_ID = arcTestnet.id
+export const ART_VENDOR_ADDRESS = '0xa750869cf87ac1d001a70bdfd1d75de468014153' as const
+export const ART_VENDOR_CHAIN_ID = arc.id  // 5042
 
 const usdcFact = getUsdc(ART_VENDOR_CHAIN_ID)
-if (!usdcFact) throw new Error('USDC not found on Arc Testnet')
+if (!usdcFact) throw new Error('USDC not found on Arc mainnet')
 export const USDC_ADDRESS = usdcFact.address as `0x${string}`
 export const USDC_DECIMALS = usdcFact.decimals // 6
 
-export const EXPLORER_BASE = 'https://explorer.testnet.arc.io'
+export const EXPLORER_BASE = 'https://explorer.arc.io'
 
-/** Block at which the canonical ArtVendor was deployed (deploy tx 0x5f366949…). */
-export const DEPLOY_BLOCK = 67618535n
+/** Block at which the canonical ArtVendor was deployed on Arc mainnet (deploy tx 0xa2d3f4ad…). */
+export const DEPLOY_BLOCK = 26394991n
 
 export const ART_VENDOR_ABI = [
   {

@@ -13,11 +13,11 @@ export const STRINGS = {
     nav_splits: 'Splits',
     nav_artist: 'Artist',
     nav_how: 'How it works',
-    nav_testnet: 'testnet',
+    nav_testnet: 'mainnet',
 
     // Wallet
     connect_wallet: 'Connect wallet',
-    wrong_chain: 'Switch to Arc Testnet',
+    wrong_chain: 'Switch to Arc',
     wallet_connected: 'Connected',
 
     // Gallery
@@ -48,7 +48,7 @@ export const STRINGS = {
     confirm_purchase: 'Confirm purchase',
     retry: 'Try again',
     cta_connect: 'Connect wallet',
-    cta_wrong_chain: 'Switch to Arc Testnet',
+    cta_wrong_chain: 'Switch to Arc',
     cta_approving_wallet: 'Confirm in wallet…',
     cta_approving: 'Approving USDC…',
     cta_buying_wallet: 'Confirm in wallet…',
@@ -70,7 +70,7 @@ export const STRINGS = {
     splits_loading: 'Reading onchain events…',
     splits_empty: 'No splits recorded since deployment.',
     splits_partial: 'Some block ranges could not be fetched; amounts may be incomplete.',
-    splits_footer: 'Since deployment · Arc Testnet',
+    splits_footer: 'Since deployment · Arc',
     col_recipient: 'Recipient',
     col_total: 'Total received',
     col_last: 'Last payout',
@@ -120,10 +120,10 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
     nav_splits: 'Repartos',
     nav_artist: 'Artista',
     nav_how: 'Cómo funciona',
-    nav_testnet: 'testnet',
+    nav_testnet: 'mainnet',
 
     connect_wallet: 'Conectar cartera',
-    wrong_chain: 'Cambiar a Arc Testnet',
+    wrong_chain: 'Cambiar a Arc',
     wallet_connected: 'Conectado',
 
     featured_label: 'Obra destacada',
@@ -152,7 +152,7 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
     confirm_purchase: 'Confirmar compra',
     retry: 'Intentar de nuevo',
     cta_connect: 'Conectar cartera',
-    cta_wrong_chain: 'Cambiar a Arc Testnet',
+    cta_wrong_chain: 'Cambiar a Arc',
     cta_approving_wallet: 'Confirma en tu cartera…',
     cta_approving: 'Aprobando USDC…',
     cta_buying_wallet: 'Confirma en tu cartera…',
@@ -172,7 +172,7 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
     splits_loading: 'Leyendo eventos onchain…',
     splits_empty: 'Ningún reparto registrado desde el despliegue.',
     splits_partial: 'Algunos rangos de bloques no se pudieron obtener; los totales pueden estar incompletos.',
-    splits_footer: 'Desde el despliegue · Arc Testnet',
+    splits_footer: 'Desde el despliegue · Arc',
     col_recipient: 'Destinatario',
     col_total: 'Total recibido',
     col_last: 'Último pago',

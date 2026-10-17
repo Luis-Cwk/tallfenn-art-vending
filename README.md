@@ -2,6 +2,8 @@
 
 A generative art vending machine on [Arc](https://docs.arc.io), built with [Arc Studio](https://studio.arc.io). Buyers pay in USDC. Each purchase mints an edition receipt NFT and the payment is split instantly between the artist and collaborators. Buyers can be humans or AI agents.
 
+Live app: https://tallfenn-art-vending.petrasynthetic.workers.dev
+
 Artist: **Tall Fenn**.
 
 ## How it works
@@ -43,7 +45,12 @@ forge test
 | Network | ArtVendor | Explorer |
 |---|---|---|
 | Arc Testnet | `0xced7cd9590b112da9149d29176b17630ed022266` | [explorer](https://explorer.testnet.arc.io/address/0xced7cd9590b112da9149d29176b17630ed022266) |
-| Arc mainnet | pending | |
+| Arc mainnet | `0xa750869cf87ac1d001a70bdfd1d75de468014153` | [explorer](https://explorer.arc.io/address/0xa750869cf87ac1d001a70bdfd1d75de468014153) |
+
+Mainnet reference transactions:
+- Deploy: [`0xa2d3f4ad…`](https://explorer.arc.io/tx/0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1)
+- List artwork: [`0x79e04906…`](https://explorer.arc.io/tx/0x79e04906def4c6dd469d525f47b6c19b07297b7740fedcf3d2711b6ed8882551)
+- Buy (0.5 USDC, 80/20 split): [`0xd0ff393b…`](https://explorer.arc.io/tx/0xd0ff393bf417ed7bcf698490f0bda2e20a979d1ed8bd2a56c89d192f0e96bcc3)
 
 Testnet reference transactions:
 - Deploy: [`0x5f366949…`](https://explorer.testnet.arc.io/tx/0x5f366949e7ca840e26c31b862f12d4c2f1a1a30fc357444384e79daaa1aed57c)

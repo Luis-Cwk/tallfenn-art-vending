@@ -33,7 +33,7 @@ export default function ComoFunciona() {
         </p>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, flexWrap: 'wrap' }}>
           <span className="mono" style={{ fontSize: 11, color: 'var(--ink)' }}>{ART_VENDOR_ADDRESS}</span>
-          <span style={{ color: 'var(--subtle)', fontSize: 11, fontFamily: 'system-ui, sans-serif' }}>Arc Testnet · 5042002</span>
+          <span style={{ color: 'var(--subtle)', fontSize: 11, fontFamily: 'system-ui, sans-serif' }}>Arc · 5042</span>
           <a href={`${EXPLORER_BASE}/address/${ART_VENDOR_ADDRESS}`} target="_blank" rel="noopener noreferrer"
             style={{ color: 'var(--ink)', fontSize: 11, fontFamily: 'system-ui, sans-serif', borderBottom: '1px solid var(--ink)', textDecoration: 'none' }}>
             {t.how_explorer}

@@ -1,0 +1,15 @@
+{
+  "network": "arc-mainnet",
+  "chainId": 5042,
+  "address": "0xa750869cf87ac1d001a70bdfd1d75de468014153",
+  "deployTx": "0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1",
+  "deployBlock": "26394991",
+  "listTx": "0x79e04906def4c6dd469d525f47b6c19b07297b7740fedcf3d2711b6ed8882551",
+  "approveTx": "0x4d5128e3558ac8b922a73ca6c767c0f2e9cadf9343345f2bb0bcb09aac12e36f",
+  "buyTx": "0xd0ff393bf417ed7bcf698490f0bda2e20a979d1ed8bd2a56c89d192f0e96bcc3",
+  "usdc": "0x3600000000000000000000000000000000000000",
+  "owner": "0x53360033F25E9468FF792ff1f25A8F8B45c523b7",
+  "secondRecipient": "0x1A49138cCb61C50D72A44a299F6C74c690f6c67f",
+  "secondRecipientBalance": "100000",
+  "createdAt": "2026-10-17T07:13:54.625Z"
+}
