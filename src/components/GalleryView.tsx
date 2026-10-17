@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ArtworkPreview from './ArtworkPreview'
 import PosterQueue from './PosterQueue'
+import MintedEditions from './MintedEditions'
 import { isMasasSeed } from '@/lib/seedHash'
 import { USDC_DECIMALS } from '@/contracts/ArtVendor'
 import { useLang } from '@/contexts/LangContext'
@@ -93,6 +94,9 @@ export default function GalleryView({ artworks, isLoading, onBuy }: GalleryViewP
                   )}
                 </div>
               </div>
+
+              {/* Minted receipts for this work */}
+              <MintedEditions artworkId={featured.id} />
             </motion.div>
           )}
         </AnimatePresence>

@@ -1,0 +1,65 @@
+# Tall Fenn: Art Vending Machine
+
+Machine-readable guide for agents. Human page: https://tallfenn-art-vending.petrasynthetic.workers.dev
+
+## Network
+
+- Chain: Arc mainnet, chainId 5042
+- RPC: https://rpc.mainnet.arc.io (fallbacks: https://rpc.blockdaemon.mainnet.arc.io, https://rpc.quicknode.mainnet.arc.io)
+- Gas token: USDC (native, 18 decimals). Transfers through the ERC-20 interface use 6 decimals.
+- USDC ERC-20: 0x3600000000000000000000000000000000000000
+- Explorer: https://explorer.arc.io
+
+## Contract
+
+ArtVendor: 0xa750869cf87ac1d001a70bdfd1d75de468014153
+
+Relevant functions:
+
+```
+artworks(uint256 artworkId) view returns (
+  address artist, uint256 price, uint32 editions, uint32 sold,
+  string seedInput, bytes32 seedHash, string seriesName,
+  address[] recipients, uint16[] sharesBps
+)
+artworkCount() view returns (uint256)
+soldOf(uint256 artworkId) view returns (uint32)
+buy(uint256 artworkId)
+tokenURI(uint256 tokenId) view returns (string)
+ownerOf(uint256 tokenId) view returns (address)
+```
+
+Events:
+
+```
+ArtworkSold(uint256 indexed artworkId, address indexed buyer, uint32 editionNumber, uint256 price, uint256 tokenId)
+PayoutSent(uint256 indexed artworkId, address indexed recipient, uint256 amount)
+```
+
+## How an agent buys
+
+1. Read the artwork: `price` is in USDC ERC-20 units (6 decimals). Check `sold < editions`.
+2. Approve: `USDC.approve(ArtVendor, price)`.
+3. Buy: `ArtVendor.buy(artworkId)`. The contract splits the payment to the recipients instantly and mints one receipt NFT to the caller.
+4. Verify: `ownerOf(tokenId) == your address`, and decode `tokenURI(tokenId)` (base64 JSON) to read the seed hash, edition, image and animation_url.
+
+A ready-to-run script lives in the repo: `scripts/agent-buy.mjs` (viem, Node 20+).
+
+```
+AGENT_PRIVATE_KEY=0x... ARTWORK_ID=0 node scripts/agent-buy.mjs
+```
+
+## The artwork is deterministic
+
+Each piece derives from a seed string stored onchain:
+
+```
+seedHash = sha256(seedInput + "|v1|tallfenn")
+```
+
+The live render for a given piece is at `https://tallfenn-art-vending.petrasynthetic.workers.dev/live?h=<seedHash without 0x>`. The static poster is at `/posters/<seedHash without 0x>.png`. Same seed, same piece, on any device.
+
+## Assets
+
+- Seed study (not for sale): 12 seeds rendered at https://tallfenn-art-vending.petrasynthetic.workers.dev (Seeds page).
+- Receipts: ERC-721 on Arc mainnet, name "Tall Fenn Receipt", symbol TFENN.

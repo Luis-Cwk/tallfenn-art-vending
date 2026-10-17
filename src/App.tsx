@@ -11,6 +11,7 @@ import SplitsView from './components/SplitsView'
 import ArtistPanel from './components/ArtistPanel'
 import ComoFunciona from './components/ComoFunciona'
 import SeedsView from './components/SeedsView'
+import LiveView from './components/LiveView'
 import { useArtworks, useContractOwner } from './hooks/useArtworks'
 import { useLang } from './contexts/LangContext'
 import { StudioWatermark } from './main'
@@ -51,6 +52,10 @@ export default function App() {
   ]
 
   const isGalleryActive = route === 'gallery' || route === 'buy'
+
+  // NFT animation_url target: /live?h=<seedHash without 0x>
+  const liveHash = new URLSearchParams(window.location.search).get('h')
+  if (liveHash) return <LiveView hash={liveHash} />
 
   return (
     <div style={{ minHeight: '100dvh', background: 'var(--bg)', display: 'flex', flexDirection: 'column' }}>

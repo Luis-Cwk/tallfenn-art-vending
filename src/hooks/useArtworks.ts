@@ -38,7 +38,7 @@ export function useArtworks() {
     chainId: ART_VENDOR_CHAIN_ID,
   }))
 
-  const results = useReadContracts({ contracts, query: { enabled: n > 0 } })
+  const results = useReadContracts({ contracts, query: { enabled: n > 0, refetchInterval: 12000, refetchOnWindowFocus: true } })
 
   const artworks: ArtworkData[] = (results.data ?? [])
     .map((r, i) => {

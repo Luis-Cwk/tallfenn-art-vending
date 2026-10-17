@@ -119,6 +119,18 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
     seeds_hue: 'Hue',
     seeds_masses: 'Masses',
 
+    // Minted editions + live view + agents
+    minted_title: 'Minted editions',
+    minted_empty: 'No editions minted yet.',
+    minted_loading: 'Reading onchain sales…',
+    minted_edition: 'Edition',
+    live_back: 'Gallery',
+    live_not_found: 'No artwork onchain matches this hash',
+    agents_title: 'For agents',
+    agents_body: 'Any account with USDC on Arc can buy by calling buy(artworkId) on the contract. The repository ships a ready-to-run script, and llms.txt describes the flow in machine-readable form.',
+    agents_llms: 'llms.txt',
+    agents_script: 'agent-buy.mjs',
+
     // Footer
     lang_toggle_es: 'ES',
     lang_toggle_en: 'EN',
@@ -227,6 +239,18 @@ Puede comprar un humano o un agente de IA. El contrato no distingue entre una bi
     seeds_mode: 'Modo',
     seeds_hue: 'Matiz',
     seeds_masses: 'Masas',
+
+    // Ediciones minteadas + vista en vivo + agentes
+    minted_title: 'Ediciones minteadas',
+    minted_empty: 'Aún no hay ediciones minteadas.',
+    minted_loading: 'Leyendo ventas onchain…',
+    minted_edition: 'Edición',
+    live_back: 'Galería',
+    live_not_found: 'Ninguna obra en la cadena coincide con este hash',
+    agents_title: 'Para agentes',
+    agents_body: 'Cualquier cuenta con USDC en Arc puede comprar llamando buy(artworkId) en el contrato. El repositorio incluye un script listo para correr y llms.txt describe el flujo en formato legible por máquinas.',
+    agents_llms: 'llms.txt',
+    agents_script: 'agent-buy.mjs',
 
     lang_toggle_es: 'ES',
     lang_toggle_en: 'EN',

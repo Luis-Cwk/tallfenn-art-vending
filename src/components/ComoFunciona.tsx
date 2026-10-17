@@ -27,6 +27,26 @@ export default function ComoFunciona() {
 
         <div className="rule" style={{ margin: '2rem 0' }} />
 
+        {/* For agents */}
+        <p style={{ color: 'var(--subtle)', fontSize: 10, fontFamily: 'system-ui, sans-serif', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 8px' }}>
+          {t.agents_title}
+        </p>
+        <p style={{ fontSize: 14, lineHeight: 1.7, color: 'var(--muted)', fontFamily: 'system-ui, sans-serif', margin: '0 0 10px', maxWidth: '62ch' }}>
+          {t.agents_body}
+        </p>
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: '2rem' }}>
+          <a href="/llms.txt" target="_blank" rel="noopener noreferrer"
+            style={{ color: 'var(--ink)', fontSize: 12, fontFamily: 'system-ui, sans-serif', borderBottom: '1px solid var(--ink)', textDecoration: 'none' }}>
+            {t.agents_llms}
+          </a>
+          <a href="https://github.com/Luis-Cwk/tallfenn-art-vending/blob/main/scripts/agent-buy.mjs" target="_blank" rel="noopener noreferrer"
+            style={{ color: 'var(--ink)', fontSize: 12, fontFamily: 'system-ui, sans-serif', borderBottom: '1px solid var(--ink)', textDecoration: 'none' }}>
+            {t.agents_script}
+          </a>
+        </div>
+
+        <div className="rule" style={{ margin: '2rem 0' }} />
+
         {/* Contract reference */}
         <p style={{ color: 'var(--subtle)', fontSize: 10, fontFamily: 'system-ui, sans-serif', textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 6px' }}>
           {t.how_contract_label}
