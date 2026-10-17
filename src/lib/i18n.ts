@@ -10,6 +10,7 @@ export const STRINGS = {
   en: {
     // Nav
     nav_gallery: 'Gallery',
+    nav_seeds: 'Seeds',
     nav_splits: 'Splits',
     nav_artist: 'Artist',
     nav_how: 'How it works',
@@ -110,6 +111,14 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
     how_contract_label: 'Deployed contract',
     how_explorer: 'View on explorer',
 
+    // Seeds page
+    seeds_title: 'Seeds',
+    seeds_intro: 'Seed study. Each seed is a deterministic work. The pieces on sale live in the gallery.',
+    seeds_back: '← Seeds',
+    seeds_mode: 'Mode',
+    seeds_hue: 'Hue',
+    seeds_masses: 'Masses',
+
     // Footer
     lang_toggle_es: 'ES',
     lang_toggle_en: 'EN',
@@ -117,6 +126,7 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
 
   es: {
     nav_gallery: 'Galería',
+    nav_seeds: 'Semillas',
     nav_splits: 'Repartos',
     nav_artist: 'Artista',
     nav_how: 'Cómo funciona',
@@ -209,6 +219,14 @@ El pago se reparte solo. Cuando alguien compra, el contrato transfiere el USDC a
 Puede comprar un humano o un agente de IA. El contrato no distingue entre una billetera controlada por una persona y una controlada por un agente de IA. Cualquier cuenta que tenga USDC suficiente y firme la transacción puede adquirir una edición. La máquina expendedora funciona 24/7, sin permiso.`,
     how_contract_label: 'Contrato desplegado',
     how_explorer: 'Ver en explorer',
+
+    // Seeds page
+    seeds_title: 'Semillas',
+    seeds_intro: 'Estudio de semillas. Cada semilla es una obra determinista. Las piezas en venta están en la galería.',
+    seeds_back: '← Semillas',
+    seeds_mode: 'Modo',
+    seeds_hue: 'Matiz',
+    seeds_masses: 'Masas',
 
     lang_toggle_es: 'ES',
     lang_toggle_en: 'EN',

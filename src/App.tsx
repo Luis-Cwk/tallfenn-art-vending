@@ -10,11 +10,12 @@ import BuyPanel from './components/BuyPanel'
 import SplitsView from './components/SplitsView'
 import ArtistPanel from './components/ArtistPanel'
 import ComoFunciona from './components/ComoFunciona'
+import SeedsView from './components/SeedsView'
 import { useArtworks, useContractOwner } from './hooks/useArtworks'
 import { useLang } from './contexts/LangContext'
 import { StudioWatermark } from './main'
 
-type Route = 'gallery' | 'buy' | 'splits' | 'artista' | 'como'
+type Route = 'gallery' | 'buy' | 'seeds' | 'splits' | 'artista' | 'como'
 
 export default function App() {
   const [route, setRoute] = useState<Route>('gallery')
@@ -43,6 +44,7 @@ export default function App() {
 
   const navItems: { id: Route; label: string }[] = [
     { id: 'gallery', label: t.nav_gallery },
+    { id: 'seeds', label: t.nav_seeds },
     { id: 'splits', label: t.nav_splits },
     { id: 'artista', label: t.nav_artist },
     { id: 'como', label: t.nav_how },
@@ -139,6 +141,11 @@ export default function App() {
           {route === 'buy' && buyArtwork && (
             <motion.div key="buy" initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
               <BuyPanel artwork={buyArtwork} onBack={handleBack} onSuccess={handleBuySuccess} />
+            </motion.div>
+          )}
+          {route === 'seeds' && (
+            <motion.div key="seeds" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+              <SeedsView />
             </motion.div>
           )}
           {route === 'splits' && (
