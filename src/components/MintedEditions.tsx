@@ -1,13 +1,14 @@
 /**
- * MintedEditions: receipts minted for one artwork, read from ArtworkSold events.
- * Shows edition number, token id, owner and the transaction.
+ * MintedEditions: every receipt minted on the current contract, newest first.
+ * Each row links to the live render of that edition (a unique variant of the series).
  */
 import { useLang } from '@/contexts/LangContext'
 import { useSales } from '@/hooks/useSales'
+import { useArtworks } from '@/hooks/useArtworks'
 import { EXPLORER_BASE } from '@/contracts/ArtVendor'
 
 interface MintedEditionsProps {
-  artworkId: bigint
+  artworkId?: bigint
 }
 
 function short(addr: string) {
@@ -17,7 +18,11 @@ function short(addr: string) {
 export default function MintedEditions({ artworkId }: MintedEditionsProps) {
   const { t } = useLang()
   const { sales, loading } = useSales()
-  const rows = sales.filter((s) => BigInt(s.artworkId) === artworkId)
+  const { artworks } = useArtworks()
+
+  const rows = artworkId !== undefined ? sales.filter((s) => BigInt(s.artworkId) === artworkId) : sales
+  const hashFor = (id: number) =>
+    artworks.find((a) => Number(a.id) === id)?.seedHash.replace(/^0x/, '') ?? ''
 
   return (
     <div style={{ marginTop: '1.5rem' }}>
@@ -42,7 +47,7 @@ export default function MintedEditions({ artworkId }: MintedEditionsProps) {
           key={sale.tokenId.toString()}
           style={{
             display: 'grid',
-            gridTemplateColumns: '52px 64px 1fr auto',
+            gridTemplateColumns: '140px 64px 1fr auto',
             alignItems: 'center',
             gap: 10,
             padding: '6px 0',
@@ -52,17 +57,25 @@ export default function MintedEditions({ artworkId }: MintedEditionsProps) {
             color: 'var(--muted)',
           }}
         >
-          <span>{t.minted_edition} {sale.edition}</span>
+          <span>{t.minted_edition} {sale.edition} · #{sale.artworkId}</span>
           <span className="mono" style={{ fontSize: 10, color: 'var(--subtle)' }}>#{sale.tokenId.toString()}</span>
           <span className="mono" style={{ fontSize: 10 }}>{short(sale.buyer)}</span>
-          <a
-            href={`${EXPLORER_BASE}/tx/${sale.txHash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: 'var(--ink)', textDecoration: 'underline', fontSize: 11 }}
-          >
-            tx
-          </a>
+          <span style={{ display: 'flex', gap: 12, justifyContent: 'flex-end' }}>
+            <a
+              href={`/live?h=${hashFor(sale.artworkId)}&e=${sale.edition}`}
+              style={{ color: 'var(--ink)', textDecoration: 'underline', fontSize: 11 }}
+            >
+              {t.minted_view}
+            </a>
+            <a
+              href={`${EXPLORER_BASE}/tx/${sale.txHash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'var(--ink)', textDecoration: 'underline', fontSize: 11 }}
+            >
+              tx
+            </a>
+          </span>
         </div>
       ))}
     </div>

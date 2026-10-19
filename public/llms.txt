@@ -12,7 +12,7 @@ Machine-readable guide for agents. Human page: https://tallfenn-art-vending.petr
 
 ## Contract
 
-ArtVendor: 0x4c6723ff8538cdaeb808f8baf352cd53bb051119
+ArtVendor: 0x3217cfcd92b683d66038093ec39f0034179467b3
 
 Relevant functions:
 

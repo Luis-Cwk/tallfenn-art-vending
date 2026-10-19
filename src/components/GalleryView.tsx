@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import ArtworkPreview from './ArtworkPreview'
 import PosterQueue from './PosterQueue'
@@ -27,6 +27,15 @@ export default function GalleryView({ artworks, isLoading, onBuy }: GalleryViewP
   const { t } = useLang()
   const [selectedId, setSelectedId] = useState<number>(0)
   const [posters, setPosters] = useState<Record<string, string>>({})
+  const picked = useRef(false)
+
+  // The gallery is a generative space: feature a different work on each visit.
+  useEffect(() => {
+    if (!picked.current && artworks.length > 1) {
+      picked.current = true
+      setSelectedId(Math.floor(Math.random() * artworks.length))
+    }
+  }, [artworks.length])
 
   const handlePoster = useCallback((seedHash: string, url: string) => {
     setPosters((prev) => ({ ...prev, [seedHash]: url }))
@@ -96,7 +105,7 @@ export default function GalleryView({ artworks, isLoading, onBuy }: GalleryViewP
               </div>
 
               {/* Minted receipts for this work */}
-              <MintedEditions artworkId={featured.id} />
+              <MintedEditions />
             </motion.div>
           )}
         </AnimatePresence>

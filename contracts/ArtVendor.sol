@@ -262,6 +262,8 @@ contract ArtVendor is ERC721, Pausable, Ownable {
                 appBase,
                 'live?h=',
                 hashHex,
+                '&e=',
+                uint256(receipt.editionNumber).toString(),
                 '","external_url":"',
                 appBase,
                 '","attributes":[',

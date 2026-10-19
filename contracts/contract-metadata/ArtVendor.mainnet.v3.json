@@ -1,0 +1,16 @@
+{
+  "version": 3,
+  "network": "arc-mainnet",
+  "chainId": 5042,
+  "address": "0x3217cfcd92b683d66038093ec39f0034179467b3",
+  "deployTx": "0x268f20247213fe41dfa0da21ba61a00dca3dfbeedf7f27dc8aa18d574be33106",
+  "deployBlock": "26691656",
+  "listGenesisTx": "0x880a78417445cba021a0d17df888e5e8b0169e64e28875427ed9f1919e7f4013",
+  "listA08Tx": "0xe61c847865bbbec977f2263b9e66fb8483aabb6810aeadca1240666707ca8341",
+  "buyTx": "0x9329c3935697973f908d5cbf4689e590b643175dde39cfdd5a7d1d17f5685e2f",
+  "usdc": "0x3600000000000000000000000000000000000000",
+  "imageBase": "https://tallfenn-art-vending.petrasynthetic.workers.dev/posters/",
+  "appBase": "https://tallfenn-art-vending.petrasynthetic.workers.dev/",
+  "owner": "0x53360033F25E9468FF792ff1f25A8F8B45c523b7",
+  "createdAt": "2026-10-19T00:59:05.027Z"
+}

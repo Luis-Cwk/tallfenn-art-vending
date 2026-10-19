@@ -441,7 +441,7 @@ contract ArtVendorTest is Test {
         assertTrue(_contains(decoded, expectedImage), "image URL mismatch");
 
         // animation_url = appBase + "live?h=" + hashHex
-        string memory expectedAnim = string(abi.encodePacked(APP_BASE, "live?h=", hashHex));
+        string memory expectedAnim = string(abi.encodePacked(APP_BASE, "live?h=", hashHex, "&e=1"));
         assertTrue(_contains(decoded, expectedAnim), "animation_url mismatch");
 
         // external_url = appBase

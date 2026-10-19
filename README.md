@@ -45,7 +45,7 @@ forge test
 | Network | ArtVendor | Explorer |
 |---|---|---|
 | Arc Testnet | `0xced7cd9590b112da9149d29176b17630ed022266` | [explorer](https://explorer.testnet.arc.io/address/0xced7cd9590b112da9149d29176b17630ed022266) |
-| Arc mainnet | `0x4c6723ff8538cdaeb808f8baf352cd53bb051119` | [explorer](https://explorer.arc.io/address/0x4c6723ff8538cdaeb808f8baf352cd53bb051119) |
+| Arc mainnet | `0x3217cfcd92b683d66038093ec39f0034179467b3` | [explorer](https://explorer.arc.io/address/0x3217cfcd92b683d66038093ec39f0034179467b3) |
 
 Mainnet reference transactions:
 - Deploy: [`0xa2d3f4adâ€¦`](https://explorer.arc.io/tx/0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1)

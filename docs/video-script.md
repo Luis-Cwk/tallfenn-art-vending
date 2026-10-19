@@ -36,7 +36,7 @@ Option B: open the explorer transaction:
 https://explorer.arc.io/tx/0x5f52ad02d2ae5390f7a4db1e29674cfca35f87e539f6a8472e76f3be07a69928
 
 Then open your receipt on the explorer (the token page shows the image):
-https://explorer.arc.io/token/0x4c6723ff8538cdaeb808f8baf352cd53bb051119
+https://explorer.arc.io/token/0x3217cfcd92b683d66038093ec39f0034179467b3
 
 Say: "A buy pulls exactly the price in USDC and splits it instantly: 80 percent to the artist wallet, 20 percent to the collaborator. It also mints an onchain receipt with the seed hash inside its metadata."
 
@@ -51,7 +51,7 @@ Say: "This ledger reads the payout events straight from the chain. No intermedia
 Show the contract address and the repo:
 https://github.com/Luis-Cwk/tallfenn-art-vending
 
-Say: "Contract 0x4c6723ff8538cdaeb808f8baf352cd53bb051119 on Arc mainnet. Code on GitHub. Built with Arc Studio."
+Say: "Contract 0x3217cfcd92b683d66038093ec39f0034179467b3 on Arc mainnet. Code on GitHub. Built with Arc Studio."
 
 ## Upload
 
