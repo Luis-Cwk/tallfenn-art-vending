@@ -113,6 +113,10 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
 
     // Seeds page
     seeds_title: 'Seeds',
+    seeds_studio_title: 'Study',
+    seeds_premium_title: 'Premium',
+    seeds_premium_intro: 'The premium collection: an orbital sculpture with two directions of light, double fresnel, veins of light, travelling bands and suspended dust. Drag inside the live view to orbit the piece.',
+    seeds_palette: 'Palette',
     seeds_intro: 'Seed study. Each seed is a deterministic work. The pieces on sale live in the gallery.',
     seeds_back: '← Seeds',
     seeds_mode: 'Mode',
@@ -236,6 +240,10 @@ Puede comprar un humano o un agente de IA. El contrato no distingue entre una bi
 
     // Seeds page
     seeds_title: 'Semillas',
+    seeds_studio_title: 'Estudio',
+    seeds_premium_title: 'Premium',
+    seeds_premium_intro: 'La colección premium: una escultura en órbita con dos direcciones de luz, doble fresnel, venas de luz, bandas viajeras y polvo suspendido. Arrastra dentro de la vista en vivo para orbitar la pieza.',
+    seeds_palette: 'Paleta',
     seeds_intro: 'Estudio de semillas. Cada semilla es una obra determinista. Las piezas en venta están en la galería.',
     seeds_back: '← Semillas',
     seeds_mode: 'Modo',

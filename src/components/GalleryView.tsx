@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import ArtworkPreview from './ArtworkPreview'
 import PosterQueue from './PosterQueue'
 import MintedEditions from './MintedEditions'
-import { isMasasSeed } from '@/lib/seedHash'
+import { isMasasSeed, isPremiumSeed } from '@/lib/seedHash'
 import { USDC_DECIMALS } from '@/contracts/ArtVendor'
 import { useLang } from '@/contexts/LangContext'
 import type { ArtworkData } from '@/hooks/useArtworks'
@@ -43,7 +43,11 @@ export default function GalleryView({ artworks, isLoading, onBuy }: GalleryViewP
 
   const posterJobs = artworks
     .filter((a) => isMasasSeed(a.seedInput))
-    .map((a) => ({ hash: a.seedHash.startsWith('0x') ? a.seedHash.slice(2) : a.seedHash, seedHash: a.seedHash }))
+    .map((a) => ({
+      hash: a.seedHash.startsWith('0x') ? a.seedHash.slice(2) : a.seedHash,
+      seedHash: a.seedHash,
+      premium: isPremiumSeed(a.seedInput),
+    }))
 
   const featured = artworks[selectedId] ?? artworks[0]
   const soldOut = featured ? featured.sold >= featured.editions : false

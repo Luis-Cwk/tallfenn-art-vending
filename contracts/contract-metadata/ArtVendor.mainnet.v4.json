@@ -1,0 +1,41 @@
+{
+  "version": 4,
+  "network": "arc-mainnet",
+  "chainId": 5042,
+  "address": "0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0",
+  "deployTx": "0x9c7fcc5590196dbfe835aec9c70ff8ef649a1a627254322c2412a38d87536910",
+  "deployBlock": 26698958,
+  "listTxs": {
+    "masas|genesis|001": "0x96e3ba5e5dc6ee0a88797c04461cca061f67de62ff06dfe7a576b49b759b66bb",
+    "masas|premium|003": "0x6f677ebd198501d0ac8eeee9b9ebbd6220c10033e1914b16c605c571cced5855",
+    "masas|premium|011": "0xd1fa04d32c9e6a8583774638d9a48dcf23ab3bf1d5f062d76a70f6709f2b3e4c"
+  },
+  "usdc": "0x3600000000000000000000000000000000000000",
+  "imageBase": "https://tallfenn-art-vending.petrasynthetic.workers.dev/posters/",
+  "appBase": "https://tallfenn-art-vending.petrasynthetic.workers.dev/",
+  "owner": "0x53360033F25E9468FF792ff1f25A8F8B45c523b7",
+  "works": [
+    {
+      "id": 0,
+      "seedInput": "masas|genesis|001",
+      "seedHash": "0x3ce78f1c128f10a8e445f356e4ff9b0bc7312e2c3e6b76f4cde2e56d7547fc83",
+      "price": "500000",
+      "editions": 25
+    },
+    {
+      "id": 1,
+      "seedInput": "masas|premium|003",
+      "seedHash": "0x5610ab8825416e00ba9c44fcef0ed778431dee81b3a43c8b8bef747e5b932523",
+      "price": "2000000",
+      "editions": 5
+    },
+    {
+      "id": 2,
+      "seedInput": "masas|premium|011",
+      "seedHash": "0x5e3e97614595717035744e4bb105623e63c9471710dacf5aa0b7d6c6aa432494",
+      "price": "5000000",
+      "editions": 3
+    }
+  ],
+  "createdAt": "2026-10-19T02:00:54.076Z"
+}

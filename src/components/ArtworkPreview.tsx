@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react'
 import ShaderCanvas from './ShaderCanvas'
 import { buildSvgFromHash } from '@/lib/tfSvg'
-import { isMasasSeed, sha256Hex } from '@/lib/seedHash'
+import { isMasasSeed, isPremiumSeed, sha256Hex } from '@/lib/seedHash'
 
 interface ArtworkPreviewProps {
   seedInput: string
@@ -43,7 +43,7 @@ export default function ArtworkPreview({ seedInput, seedHash, mode, posterUrl, c
     }
     // live
     if (!hash) return <div className={className} style={{ background: 'var(--surface-muted)', width: '100%', height: '100%' }} />
-    return <ShaderCanvas hash={hash} className={className} paused={paused} />
+    return <ShaderCanvas hash={hash} premium={isPremiumSeed(seedInput)} className={className} paused={paused} />
   }
 
   // SVG engine

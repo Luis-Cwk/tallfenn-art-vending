@@ -26,3 +26,8 @@ export function byteAt(hex: string, i: number): number {
 export function isMasasSeed(seedInput: string): boolean {
   return seedInput.startsWith('masas|')
 }
+
+/** Premium seeds: orbital sculpture + luxury palettes. */
+export function isPremiumSeed(seedInput: string): boolean {
+  return seedInput.startsWith('masas|premium|')
+}

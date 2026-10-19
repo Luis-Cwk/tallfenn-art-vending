@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { useLang } from '@/contexts/LangContext'
 import { useArtworks } from '@/hooks/useArtworks'
 import ShaderCanvas from './ShaderCanvas'
-import { isMasasSeed, sha256Hex } from '@/lib/seedHash'
+import { isMasasSeed, isPremiumSeed, sha256Hex } from '@/lib/seedHash'
 
 interface LiveViewProps {
   hash: string
@@ -63,7 +63,7 @@ export default function LiveView({ hash }: LiveViewProps) {
           <div style={{ width: '100%', maxWidth: 1100 }}>
             <div className="artwork-frame" style={{ aspectRatio: '4/3', width: '100%', overflow: 'hidden' }}>
               {isMasasSeed(artwork.seedInput) ? (
-                <ShaderCanvas hash={renderHash} />
+                <ShaderCanvas hash={renderHash} premium={isPremiumSeed(artwork.seedInput)} />
               ) : (
                 <img
                   src={`/posters/${normalized}.png`}

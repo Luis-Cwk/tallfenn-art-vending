@@ -12,7 +12,7 @@
 import { createPublicClient, createWalletClient, http, parseAbi, formatUnits } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
-const ART_VENDOR = '0xa750869cf87ac1d001a70bdfd1d75de468014153'
+const ART_VENDOR = process.env.ART_VENDOR ?? '0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0'
 const USDC = '0x3600000000000000000000000000000000000000'
 const CHAIN = {
   id: 5042,
@@ -34,7 +34,7 @@ const pub = createPublicClient({ chain: CHAIN, transport: http() })
 const wallet = createWalletClient({ account, chain: CHAIN, transport: http() })
 
 const vendorAbi = parseAbi([
-  'function artworks(uint256) view returns (address artist, uint256 price, uint32 editions, uint32 sold, string seedInput, bytes32 seedHash, string seriesName, address[] recipients, uint16[] sharesBps)',
+  'function artworks(uint256) view returns ((address artist, uint256 price, uint32 editions, uint32 sold, string seedInput, bytes32 seedHash, string seriesName, address[] recipients, uint16[] sharesBps))',
   'function buy(uint256 artworkId)',
 ])
 const usdcAbi = parseAbi([
@@ -44,11 +44,11 @@ const usdcAbi = parseAbi([
 ])
 
 const art = await pub.readContract({ address: ART_VENDOR, abi: vendorAbi, functionName: 'artworks', args: [artworkId] })
-const price = art[1]
-const editions = Number(art[2])
-const sold = Number(art[3])
+const price = art.price
+const editions = Number(art.editions)
+const sold = Number(art.sold)
 
-console.log('artwork', artworkId.toString(), 'series', art[6])
+console.log('artwork', artworkId.toString(), 'series', art.seriesName, '| seed', art.seedInput)
 console.log('price', formatUnits(price, 6), 'USDC | editions', sold + '/' + editions)
 if (sold >= editions) {
   console.error('Sold out')

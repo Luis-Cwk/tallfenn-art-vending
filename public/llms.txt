@@ -12,7 +12,17 @@ Machine-readable guide for agents. Human page: https://tallfenn-art-vending.petr
 
 ## Contract
 
-ArtVendor: 0x3217cfcd92b683d66038093ec39f0034179467b3
+ArtVendor (v4): 0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0
+
+Artworks on sale:
+
+| id | seedInput | price | editions |
+|---|---|---|---|
+| 0 | masas\|genesis\|001 | 0.5 USDC | 25 |
+| 1 | masas\|premium\|003 | 2 USDC | 5 |
+| 2 | masas\|premium\|011 | 5 USDC | 3 |
+
+Seeds starting with `masas|premium|` render the premium look: an orbital sculpture with two light directions, double fresnel, light veins and suspended dust.
 
 Relevant functions:
 

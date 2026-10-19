@@ -113,6 +113,13 @@ body {
  */
 
 /* 1. The outer <button> injected by ConnectKit: plain text, no border, no box */
+header button,
+header button:hover,
+header button:focus,
+header button *,
+header button:hover * {
+  color: var(--ink) !important;
+}
 header [data-testid="connectkit-button"],
 header [class*="ConnectKitButton"],
 header button[class*="sc-"] {
