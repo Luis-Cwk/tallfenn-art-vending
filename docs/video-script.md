@@ -35,7 +35,7 @@ Vuelve a la app. Con la obra premium destacada, **arrastra dentro del cuadro par
 Dos cosas, en este orden:
 1. Tu compra de la edición 2 en la app (aprobación de USDC + compra).
 2. El tx del agente (ya está en la cadena):
-   https://explorer.arc.io/tx/0x2022eb85cacffb84b9f6f61f0b2ffeb9813d69a33bf9ef6d5d59ccba100641a3
+   https://explorer.arc.io/tx/0x14b6099684fe019038eaa5298656ad0a9de168f172ef5372b51e3e77a49ff8c4
 > "The first edition of this work was minted by an AI agent: it read the contract, approved USDC and bought edition one with no human in the loop. This one is mine. A buy pulls exactly the price in USDC, splits it instantly, 80 percent to the artist and 20 percent to the collaborator, and mints an onchain receipt whose metadata carries the seed hash, the poster and a link to the live piece."
 
 ### 1:25 - 1:50 · Repartos
@@ -44,9 +44,9 @@ Pestaña **Splits** (Repartos): se ven los pagos (1.60 y 0.40 USDC por venta de 
 
 ### 1:50 - 2:00 · Cierre
 Pestaña **Artist** o la página del contrato, y el repo:
-- https://explorer.arc.io/address/0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0
+- https://explorer.arc.io/address/0x53c933b651bc3ace7e5b6d948411e121111d10f1
 - https://github.com/Luis-Cwk/tallfenn-art-vending
-> "Contract 0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0 on Arc mainnet. Code on GitHub. Built with Arc Studio."
+> "Contract 0x53c933b651bc3ace7e5b6d948411e121111d10f1 on Arc mainnet. Code on GitHub. Built with Arc Studio."
 
 ## Al terminar
 
@@ -58,7 +58,7 @@ Si algo sale mal a mitad, no importa: graba ese beat otra vez y me mandas las do
 ## Datos que puedes necesitar durante la grabación
 
 - App: https://tallfenn-art-vending.petrasynthetic.workers.dev
-- Contrato v4 (Arc mainnet): `0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0`
-- Tx del agente (edición 1): `0x2022eb85cacffb84b9f6f61f0b2ffeb9813d69a33bf9ef6d5d59ccba100641a3`
-- Deploy v4: `0x9c7fcc5590196dbfe835aec9c70ff8ef649a1a627254322c2412a38d87536910`
+- Contrato v5 (Arc mainnet): `0x53c933b651bc3ace7e5b6d948411e121111d10f1`
+- Tx del agente (edición 1): `0x14b6099684fe019038eaa5298656ad0a9de168f172ef5372b51e3e77a49ff8c4`
+- Deploy v4: `0xaa6dcb128ba45d2b1cb132132e244693ba4422b50ac4c9b4c1280edb311294f1`
 - Obras en venta: `masas|genesis|001` 0.5 USDC x25 · `masas|premium|003` 2 USDC x5 · `masas|premium|011` 5 USDC x3

@@ -12,7 +12,7 @@
 import { createPublicClient, createWalletClient, http, parseAbi, formatUnits } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
-const ART_VENDOR = process.env.ART_VENDOR ?? '0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0'
+const ART_VENDOR = process.env.ART_VENDOR ?? '0x53c933b651bc3ace7e5b6d948411e121111d10f1'
 const USDC = '0x3600000000000000000000000000000000000000'
 const CHAIN = {
   id: 5042,

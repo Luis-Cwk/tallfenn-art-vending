@@ -1,11 +1,11 @@
 /**
- * ArtVendor contract config: canonical Arc mainnet deployment (v4).
- * Address: 0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0
+ * ArtVendor contract config: canonical Arc mainnet deployment (v5).
+ * Address: 0x53c933b651bc3ace7e5b6d948411e121111d10f1
  */
 import { arc } from 'viem/chains'
 import { getUsdc } from '@/onchain-facts'
 
-export const ART_VENDOR_ADDRESS = '0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0' as const
+export const ART_VENDOR_ADDRESS = '0x53c933b651bc3ace7e5b6d948411e121111d10f1' as const
 export const ART_VENDOR_CHAIN_ID = arc.id  // 5042
 
 const usdcFact = getUsdc(ART_VENDOR_CHAIN_ID)
@@ -15,8 +15,8 @@ export const USDC_DECIMALS = usdcFact.decimals // 6
 
 export const EXPLORER_BASE = 'https://explorer.arc.io'
 
-/** Block at which the canonical ArtVendor was deployed on Arc mainnet (v4 deploy tx 0x9c7fcc55…). */
-export const DEPLOY_BLOCK = 26698958n
+/** Block at which the canonical ArtVendor was deployed on Arc mainnet (v5 deploy tx 0xaa6dcb12…). */
+export const DEPLOY_BLOCK = 26848324n
 
 export const ART_VENDOR_ABI = [
   {

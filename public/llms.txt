@@ -12,7 +12,7 @@ Machine-readable guide for agents. Human page: https://tallfenn-art-vending.petr
 
 ## Contract
 
-ArtVendor (v4): 0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0
+ArtVendor (v5): 0x53c933b651bc3ace7e5b6d948411e121111d10f1
 
 Artworks on sale:
 
@@ -23,6 +23,8 @@ Artworks on sale:
 | 2 | masas\|premium\|011 | 5 USDC | 3 |
 
 Seeds starting with `masas|premium|` render the premium look: an orbital sculpture with two light directions, double fresnel, light veins and suspended dust.
+
+Each receipt token gets its own image: `/posters/<artworkSeedHash>-e<edition>.jpg`, and its own live view: `/live?h=<artworkSeedHash>&e=<edition>`. Two editions of the same artwork are different renders.
 
 Relevant functions:
 

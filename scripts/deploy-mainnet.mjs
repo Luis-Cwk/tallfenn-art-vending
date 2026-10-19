@@ -1,25 +1,38 @@
 /**
- * Deploy ArtVendor v4 to Arc mainnet + list the launch works.
+ * Deploy ArtVendor to Arc mainnet + list the launch works.
  *
  * Compiles contracts/ArtVendor.sol locally with solc-js (Studio not needed),
  * deploys with viem and registers the three launch artworks:
  *   #0 masas|genesis|001  0.5 USDC x 25   (entry)
- *   #1 masas|premium|003  2.0 USDC x 5    (agent mints edition 1)
+ *   #1 masas|premium|003  2.0 USDC x 5
  *   #2 masas|premium|011  5.0 USDC x 3
  *
- * Usage: node scripts/deploy-v4.mjs [--list-only 0xADDRESS]
- * Writes contracts/contract-metadata/ArtVendor.mainnet.v4.json
+ * Usage:
+ *   node scripts/deploy-mainnet.mjs --version 5
+ *   node scripts/deploy-mainnet.mjs --version 5 --compile-only
+ *   node scripts/deploy-mainnet.mjs --list-only 0xADDRESS
+ *
+ * Writes contracts/contract-metadata/ArtVendor.mainnet.v<N>.json
+ * (v5: tokenURI image is per edition: <artworkHash>-e<edition>.jpg)
  */
-import { readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'node:fs'
 import { createHash } from 'node:crypto'
+import { createRequire } from 'node:module'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { createWalletClient, createPublicClient, http, parseAbi, formatUnits } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
+const require = createRequire(import.meta.url)
 const HERE = dirname(fileURLToPath(import.meta.url))
 const APP = resolve(HERE, '..')
 const SECRETS = 'C:/Users/petra/.arc-studio-secrets/arc-mainnet-wallet.json'
+
+const argValue = (name, fallback) => {
+  const i = process.argv.indexOf(name)
+  return i !== -1 ? process.argv[i + 1] : fallback
+}
+const VERSION = Number(argValue('--version', '5'))
 
 const RPC = process.env.RPC_URL ?? 'https://rpc.mainnet.arc.io'
 const CHAIN = {
@@ -74,9 +87,6 @@ function compile() {
   return artifact
 }
 
-const { createRequire } = await import('node:module')
-const require = createRequire(import.meta.url)
-
 const wallet = JSON.parse(readFileSync(SECRETS, 'utf8'))
 const account = privateKeyToAccount(wallet.privateKey)
 const pub = createPublicClient({ chain: CHAIN, transport: http(RPC) })
@@ -90,7 +100,6 @@ const vendorAbi = parseAbi([
 
 const listOnly = process.argv.indexOf('--list-only')
 let address
-let artifact = null
 let deployTx = null
 let deployBlock = null
 
@@ -101,10 +110,10 @@ if (process.argv.includes('--compile-only')) {
 
 if (listOnly !== -1) {
   address = process.argv[listOnly + 1]
-  if (!address?.startsWith('0x')) throw new Error('usage: node scripts/deploy-v4.mjs --list-only 0xADDRESS')
+  if (!address?.startsWith('0x')) throw new Error('usage: node scripts/deploy-mainnet.mjs --list-only 0xADDRESS')
   console.log('using existing contract', address)
 } else {
-  artifact = compile()
+  const artifact = compile()
   const balance = await pub.getBalance({ address: account.address })
   console.log('deployer', account.address, 'balance', formatUnits(balance, 18), 'USDC (native)')
 
@@ -121,7 +130,7 @@ if (listOnly !== -1) {
   address = rc.contractAddress
   deployTx = deployHash
   deployBlock = Number(rc.blockNumber)
-  console.log('deployed v4 at', address, 'block', deployBlock)
+  console.log(`deployed v${VERSION} at`, address, 'block', deployBlock)
 }
 
 // --- list works ---
@@ -146,7 +155,7 @@ for (let i = Number(count); i < WORKS.length; i++) {
 }
 
 const record = {
-  version: 4,
+  version: VERSION,
   network: 'arc-mainnet',
   chainId: 5042,
   address,
@@ -166,7 +175,10 @@ const record = {
   })),
   createdAt: new Date().toISOString(),
 }
-const outPath = resolve(APP, 'contracts/contract-metadata/ArtVendor.mainnet.v4.json')
+const outPath = resolve(APP, `contracts/contract-metadata/ArtVendor.mainnet.v${VERSION}.json`)
 writeFileSync(outPath, JSON.stringify(record, null, 2) + '\n', 'utf8')
 console.log('wrote', outPath)
-for (const w of record.works) console.log('seed', w.seedInput, 'poster', `${IMAGE_BASE}${w.seedHash.slice(2)}.png`)
+for (const w of record.works) {
+  console.log('seed', w.seedInput, 'poster', `${IMAGE_BASE}${w.seedHash.slice(2)}.png`)
+  console.log('  editions 1..' + w.editions, '->', `${IMAGE_BASE}${w.seedHash.slice(2)}-e1.jpg`)
+}

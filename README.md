@@ -45,12 +45,12 @@ forge test
 | Network | ArtVendor | Explorer |
 |---|---|---|
 | Arc Testnet | `0xced7cd9590b112da9149d29176b17630ed022266` | [explorer](https://explorer.testnet.arc.io/address/0xced7cd9590b112da9149d29176b17630ed022266) |
-| Arc mainnet | `0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0` | [explorer](https://explorer.arc.io/address/0x1d9e2dd8cb1a709c75e04278b58945a25a5677c0) |
+| Arc mainnet | `0x53c933b651bc3ace7e5b6d948411e121111d10f1` | [explorer](https://explorer.arc.io/address/0x53c933b651bc3ace7e5b6d948411e121111d10f1) |
 
 Mainnet reference transactions:
-- Deploy: [`0xa2d3f4adâ€¦`](https://explorer.arc.io/tx/0xa2d3f4ad662bb24c78d5c84d78b2c4b26badec9f1495d3845e5aaaa97a3ee8e1)
-- List artwork: [`0x79e04906â€¦`](https://explorer.arc.io/tx/0x79e04906def4c6dd469d525f47b6c19b07297b7740fedcf3d2711b6ed8882551)
-- Buy (0.5 USDC, 80/20 split): [`0xd0ff393bâ€¦`](https://explorer.arc.io/tx/0xd0ff393bf417ed7bcf698490f0bda2e20a979d1ed8bd2a56c89d192f0e96bcc3)
+- Deploy (v5): [`0xaa6dcb12…`](https://explorer.arc.io/tx/0xaa6dcb128ba45d2b1cb132132e244693ba4422b50ac4c9b4c1280edb311294f1)
+- List artwork (v5, premium 003): [`0x51bf84a0…`](https://explorer.arc.io/tx/0x51bf84a06911f0e2e58b6b3044e97dcea603f784af0127307c4068ea7f7438db)
+- Agent buy (2 USDC, 80/20 split, edition 1): [`0x14b60996…`](https://explorer.arc.io/tx/0x14b6099684fe019038eaa5298656ad0a9de168f172ef5372b51e3e77a49ff8c4)
 
 Testnet reference transactions:
 - Deploy: [`0x5f366949â€¦`](https://explorer.testnet.arc.io/tx/0x5f366949e7ca840e26c31b862f12d4c2f1a1a30fc357444384e79daaa1aed57c)
