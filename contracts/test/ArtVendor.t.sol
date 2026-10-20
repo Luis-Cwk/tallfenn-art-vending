@@ -436,8 +436,8 @@ contract ArtVendorTest is Test {
         }
         string memory decoded = string(_base64Decode(b64data));
 
-        // image = imageBase + hashHex + ".png"
-        string memory expectedImage = string(abi.encodePacked(IMAGE_BASE, hashHex, ".png"));
+        // image = imageBase + hashHex + "-e" + editionNumber + ".jpg"
+        string memory expectedImage = string(abi.encodePacked(IMAGE_BASE, hashHex, "-e1.jpg"));
         assertTrue(_contains(decoded, expectedImage), "image URL mismatch");
 
         // animation_url = appBase + "live?h=" + hashHex

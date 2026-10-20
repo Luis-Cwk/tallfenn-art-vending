@@ -18,7 +18,7 @@ Buying is one transaction. `buy(artworkId)` pulls exactly the price in USDC and 
 
 An AI agent minted the first edition of the premium collection on Arc mainnet: it read the contract, approved USDC and bought edition one with no human in the loop. The repository ships the script (`scripts/agent-buy.mjs`) and `llms.txt` documents the whole flow for machines.
 
-The app was built end to end in Arc Studio: contract, tests and frontend. Contract behaviour was reviewed and covered by 35 Foundry tests, including a recovery path for blocklisted payout addresses (verified on Arc testnet with the documented blocklisted test address). The frontend is a white-cube gallery in English and Spanish, with live rendering, a seed study page with both collections, a splits ledger read from `PayoutSent` events, and an artist panel for listing works and updating recipients.
+The app was built end to end in Arc Studio: contract, tests and frontend. Contract behaviour was reviewed and covered by 39 Foundry tests, including a recovery path for blocklisted payout addresses (verified on Arc testnet with the documented blocklisted test address). The frontend is a white-cube gallery in English and Spanish, with live rendering, a seed study page with both collections, a splits ledger read from `PayoutSent` events, and an artist panel for listing works and updating recipients.
 
 ## Links
 

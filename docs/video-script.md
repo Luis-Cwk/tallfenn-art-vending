@@ -25,7 +25,7 @@ Chrome en la galería con la obra premium moviéndose (carta 02 del catálogo: `
 
 ### 0:10 - 0:30 · Arc Studio
 Tu proyecto de Studio, mostrando el historial del chat, el árbol de archivos (`contracts/ArtVendor.sol`, `contracts/test`, `src/`) y el preview.
-> "Everything here was built in Arc Studio: the ArtVendor contract, its 35 Foundry tests and the frontend. Studio wrote and tested the contracts; the same artifact was deployed to Arc mainnet."
+> "Everything here was built in Arc Studio: the ArtVendor contract, its 39 Foundry tests and the frontend. Studio wrote and tested the contracts; the same artifact was deployed to Arc mainnet."
 
 ### 0:30 - 0:55 · La obra
 Vuelve a la app. Con la obra premium destacada, **arrastra dentro del cuadro para orbitarla** (se nota que responde). Señala la ficha y la lista de ediciones minteadas. Pasa un segundo por la página **Semillas** (sección Premium).

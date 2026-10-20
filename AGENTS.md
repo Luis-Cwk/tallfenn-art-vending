@@ -55,7 +55,7 @@ Testnet deploy tx: `0x5f366949e7ca840e26c31b862f12d4c2f1a1a30fc357444384e79daaa1
 - Web3: wagmi v2, viem v2, ConnectKit
 - Contracts: Solidity 0.8.28 + Foundry. `via_ir = true`, `evm_version = "paris"`.
   - Source: `contracts/ArtVendor.sol`
-  - Tests: `contracts/test/ArtVendor.t.sol` (35 tests, all passing)
+  - Tests: `contracts/test/ArtVendor.t.sol` (39 tests, all passing)
   - Metadata: `contracts/contract-metadata/ArtVendor.json`
 - Chain: Arc mainnet (Chain ID: 5042)
 - Token: USDC (6 decimals ERC-20, `0x3600000000000000000000000000000000000000`)

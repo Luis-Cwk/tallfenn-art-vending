@@ -57,7 +57,7 @@ Testnet reference transactions:
 - Genesis buy (0.5 USDC, split 80/20): [`0xe36283d9â€¦`](https://explorer.testnet.arc.io/tx/0xe36283d9b15341ca769668a3cf4cd19974fb0d950092c913e5317d8d594a1cac)
 - Blocklist demo (a buy that reverts, then recipient replacement, then a successful buy): [`0x6c14ef55â€¦`](https://explorer.testnet.arc.io/tx/0x6c14ef559bcfc7c9fb64dd9c181355801523c332f84e5bf0c22c936f70f2b9ae), [`0x3253839câ€¦`](https://explorer.testnet.arc.io/tx/0x3253839ce370ef17c413a7ff29cdce29545c04ff6f6f3a8dab65f2be3f426bb3)
 
-Contract behaviour was reviewed (security and functional passes) and covered by 35 Foundry tests, including the recovery path for a blocklisted recipient.
+Contract behaviour was reviewed (security and functional passes) and covered by 39 Foundry tests, including the recovery path for a blocklisted recipient.
 
 ## Structure
 
