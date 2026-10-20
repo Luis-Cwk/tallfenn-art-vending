@@ -188,7 +188,7 @@ export default function App() {
         </div>
         {/* Right: language switch */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          {(['en', 'es'] as const).map((l) => (
+          {(['en', 'es', 'fr'] as const).map((l) => (
             <button key={l} onClick={() => setLang(l)} style={{
               background: 'none', border: 'none', cursor: 'pointer',
               padding: '3px 7px', fontSize: 11,
@@ -198,7 +198,7 @@ export default function App() {
               borderBottom: lang === l ? '1px solid var(--ink)' : '1px solid transparent',
               textTransform: 'uppercase',
             }}>
-              {l === 'en' ? t.lang_toggle_en : t.lang_toggle_es}
+              {l === 'en' ? t.lang_toggle_en : l === 'es' ? t.lang_toggle_es : t.lang_toggle_fr}
             </button>
           ))}
         </div>

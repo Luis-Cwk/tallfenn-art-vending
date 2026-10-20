@@ -51,7 +51,7 @@ Testnet deploy tx: `0x5f366949e7ca840e26c31b862f12d4c2f1a1a30fc357444384e79daaa1
 
 ## Tech Stack
 
-- Frontend: React 18, Vite, TypeScript, Tailwind CSS; white-cube gallery aesthetic; EN/ES i18n (localStorage-persisted)
+- Frontend: React 18, Vite, TypeScript, Tailwind CSS; white-cube gallery aesthetic; EN/ES/FR i18n (localStorage-persisted)
 - Web3: wagmi v2, viem v2, ConnectKit
 - Contracts: Solidity 0.8.28 + Foundry. `via_ir = true`, `evm_version = "paris"`.
   - Source: `contracts/ArtVendor.sol`

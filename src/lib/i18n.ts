@@ -4,7 +4,7 @@
  * are NOT translated (they are proper nouns / titles).
  */
 
-export type Lang = 'en' | 'es'
+export type Lang = 'en' | 'es' | 'fr'
 
 export const STRINGS = {
   en: {
@@ -140,6 +140,7 @@ A human or an AI agent can buy. The contract does not distinguish between a wall
     // Footer
     lang_toggle_es: 'ES',
     lang_toggle_en: 'EN',
+    lang_toggle_fr: 'FR',
   },
 
   es: {
@@ -266,6 +267,143 @@ Puede comprar un humano o un agente de IA. El contrato no distingue entre una bi
 
     lang_toggle_es: 'ES',
     lang_toggle_en: 'EN',
+    lang_toggle_fr: 'FR',
+  },
+
+  fr: {
+    // Nav
+    nav_gallery: 'Galerie',
+    nav_seeds: 'Graines',
+    nav_splits: 'Répartitions',
+    nav_artist: 'Artiste',
+    nav_how: 'Comment ça marche',
+    nav_testnet: 'mainnet',
+
+    // Wallet
+    connect_wallet: 'Connecter le portefeuille',
+    wrong_chain: 'Passer à Arc',
+    wallet_connected: 'Connecté',
+
+    // Gallery
+    featured_label: 'Œuvre en vedette',
+    artist_name: 'Tall Fenn',
+    edition_of: (n: number, total: number) => `Édition ${n} sur ${total}`,
+    editions_left: (n: number, total: number) => `${n} sur ${total} disponibles`,
+    price_label: 'Prix',
+    acquire: 'acquérir',
+    sold_out: 'Épuisé',
+    series_label: 'Série',
+    seed_label: 'Graine',
+    catalogue_title: 'Toutes les œuvres',
+    editions_abbr: (n: number) => `${n} éd.`,
+    loading: 'Chargement…',
+    no_works: 'Aucune œuvre disponible pour le moment.',
+    generating: 'génération…',
+
+    // Buy panel
+    back_to_gallery: '← Galerie',
+    available_editions: (n: number, total: number) => `${n} sur ${total} éditions disponibles`,
+    automatic_split: 'Répartition automatique',
+    step_approve: 'Étape 1 : autoriser la dépense en USDC.\nÉtape 2 : confirmer l’achat.',
+    usdc_approved: 'USDC autorisé. Confirmez l’achat.',
+    purchase_confirmed: 'Achat confirmé',
+    receipt_edition: (n: number, token: string) => `Édition #${n} · Jeton #${token}`,
+    view_explorer: 'Voir sur l’explorateur',
+    confirm_purchase: 'Confirmer l’achat',
+    retry: 'Réessayer',
+    cta_connect: 'Connecter le portefeuille',
+    cta_wrong_chain: 'Passer à Arc',
+    cta_approving_wallet: 'Confirmez dans votre portefeuille…',
+    cta_approving: 'Autorisation de l’USDC…',
+    cta_buying_wallet: 'Confirmez dans votre portefeuille…',
+    cta_buying: 'Traitement…',
+    cta_needs_approval: 'Autoriser l’USDC et acheter',
+    cta_buy: 'Acheter l’édition',
+
+    // Errors
+    err_cancelled: 'Transaction annulée.',
+    err_balance: 'Solde insuffisant.',
+    err_blocked: 'Adresse bloquée par le contrat USDC.',
+    err_reverted: (reason: string) => `Transaction refusée : ${reason}`,
+    err_owner: 'Seul le propriétaire du contrat peut faire cela.',
+    err_generic: 'Une erreur est survenue. Veuillez réessayer.',
+
+    // Splits
+    splits_title: 'Répartitions',
+    splits_subtitle: 'Chaque vente répartit automatiquement le paiement entre les destinataires configurés. Les données proviennent directement des événements PayoutSent du contrat.',
+    splits_loading: 'Lecture des événements onchain…',
+    splits_empty: 'Aucune répartition enregistrée depuis le déploiement.',
+    splits_partial: 'Certaines plages de blocs n’ont pas pu être récupérées ; les montants peuvent être incomplets.',
+    splits_footer: 'Depuis le déploiement · Arc',
+    col_recipient: 'Destinataire',
+    col_total: 'Total reçu',
+    col_last: 'Dernier paiement',
+    col_count: 'Paiements',
+    splits_error: 'Impossible de charger les événements de répartition.',
+
+    // Artist panel
+    artist_title: 'Panneau de l’artiste',
+    owner_label: 'Propriétaire du contrat',
+    not_owner: 'Le portefeuille connecté n’est pas le propriétaire du contrat. Lecture seule.',
+    list_artwork_title: 'Enregistrer une œuvre',
+    price_usdc: 'Prix (USDC)',
+    editions_label: 'Éditions',
+    seed_input_label: 'Graine (seedInput)',
+    seed_hint: 'Commencez par « masas| » pour le moteur shader ; toute autre valeur pour le SVG.',
+    series_name_label: 'Nom de la série',
+    recipients_label: 'Destinataires et pourcentages',
+    shares_hint: 'Les pourcentages doivent totaliser 100.',
+    add_recipient: 'Ajouter un destinataire',
+    register_work: 'Enregistrer l’œuvre',
+    work_registered: 'Œuvre enregistrée onchain.',
+    update_recipients_title: 'Mettre à jour les destinataires',
+    select_work: 'Sélectionner une œuvre',
+    update_btn: 'Mettre à jour les destinataires',
+    recipients_updated: 'Destinataires mis à jour.',
+    address_placeholder: (i: number) => `Adresse ${i + 1}`,
+
+    // How it works
+    how_title: 'Comment ça marche',
+    how_body: `La graine décide de l’œuvre. Chaque pièce naît d’une chaîne de texte : la seedInput. Le navigateur calcule sha256(seedInput + "|v1|tallfenn") et le même hash est enregistré dans le contrat, de sorte que n’importe qui peut le vérifier. Ce que vous voyez à l’écran est déterministe : la même graine produit toujours la même image, sur n’importe quel appareil.
+
+Le hash reste sur la chaîne. Lorsqu’une œuvre est enregistrée, le contrat ArtVendor dérive le seedHash onchain (sha256 natif de Solidity) et le stocke de façon permanente. La graine ne peut plus être modifiée ensuite ; le hash la certifie.
+
+Le paiement est réparti automatiquement. Lorsqu’une personne achète, le contrat transfère instantanément l’USDC entre les destinataires configurés (jusqu’à 4), au prorata de leurs parts en points de base. Sans intermédiaire ni garde : les fonds ne restent jamais dans le contrat plus longtemps que nécessaire.
+
+Un humain ou un agent IA peut acheter. Le contrat ne fait pas de distinction entre un portefeuille contrôlé par une personne et un autre contrôlé par un agent IA. Tout compte disposant d’assez d’USDC et signant la transaction peut acquérir une édition. Le distributeur automatique fonctionne 24h/24, sans autorisation.`,
+    how_contract_label: 'Contrat déployé',
+    how_explorer: 'Voir sur l’explorateur',
+
+    // Seeds page
+    seeds_title: 'Graines',
+    seeds_studio_title: 'Étude',
+    seeds_premium_title: 'Premium',
+    seeds_premium_intro: 'La collection premium : une sculpture orbitale avec deux directions de lumière, double fresnel, veines de lumière, bandes mobiles et poussière en suspension. Faites glisser dans la vue en direct pour faire tourner la pièce.',
+    seeds_palette: 'Palette',
+    seeds_intro: 'Étude de graines. Chaque graine est une œuvre déterministe. Les pièces en vente sont dans la galerie.',
+    seeds_back: '← Graines',
+    seeds_mode: 'Mode',
+    seeds_hue: 'Teinte',
+    seeds_masses: 'Masses',
+
+    // Minted editions + live view + agents
+    minted_title: 'Éditions frappées',
+    minted_empty: 'Aucune édition frappée pour le moment.',
+    minted_loading: 'Lecture des ventes onchain…',
+    minted_edition: 'Édition',
+    minted_view: 'voir',
+    live_back: 'Galerie',
+    live_not_found: 'Aucune œuvre onchain ne correspond à ce hash',
+    live_edition: 'édition',
+    agents_title: 'Pour les agents',
+    agents_body: 'Tout compte disposant d’USDC sur Arc peut acheter en appelant buy(artworkId) sur le contrat. Le dépôt inclut un script prêt à l’emploi et llms.txt décrit le flux dans un format lisible par machine.',
+    agents_llms: 'llms.txt',
+    agents_script: 'agent-buy.mjs',
+
+    // Footer
+    lang_toggle_es: 'ES',
+    lang_toggle_en: 'EN',
+    lang_toggle_fr: 'FR',
   },
 } satisfies Record<Lang, Record<string, unknown>>
 

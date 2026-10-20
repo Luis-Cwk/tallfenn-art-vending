@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, type ReactNode } from 'react'
+import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react'
 import { STRINGS, type Lang, type Strings } from '@/lib/i18n'
 
 const STORAGE_KEY = 'tallfenn_lang'
@@ -6,7 +6,7 @@ const STORAGE_KEY = 'tallfenn_lang'
 function readLang(): Lang {
   try {
     const v = localStorage.getItem(STORAGE_KEY)
-    if (v === 'en' || v === 'es') return v
+    if (v === 'en' || v === 'es' || v === 'fr') return v
   } catch { /* ignore */ }
   return 'en'
 }
@@ -34,8 +34,12 @@ export function LangProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const toggle = useCallback(() => {
-    setLang(lang === 'en' ? 'es' : 'en')
+    setLang(lang === 'en' ? 'es' : lang === 'es' ? 'fr' : 'en')
   }, [lang, setLang])
+
+  useEffect(() => {
+    document.documentElement.lang = lang
+  }, [lang])
 
   return (
     <LangContext.Provider value={{ lang, t: STRINGS[lang], setLang, toggle }}>
