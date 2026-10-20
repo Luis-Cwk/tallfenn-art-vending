@@ -20,7 +20,7 @@ Artist: **Tall Fenn**.
 
 ## Stack
 
-- Frontend: React 18, Vite, TypeScript, wagmi/viem, ConnectKit. White-cube gallery UI, English by default with an ES/EN switch.
+- Frontend: React 18, Vite, TypeScript, wagmi/viem, ConnectKit. White-cube gallery UI, English by default with an EN/ES/FR switch.
 - Contracts: Solidity 0.8.20, OpenZeppelin, Foundry. `via_ir = true`.
 - Chain: Arc Testnet (chain id 5042002) and Arc mainnet (chain id 5042).
 
